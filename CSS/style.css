@@ -18,17 +18,18 @@
   border-bottom:0px solid black;
   padding-bottom:4px;
 }
-.contenu_onglets tr
+table 
 {
-   background-color:#dddddd;
-   border:1px solid black;
-   margin-top:-1px;
-   padding:5px;
-   display:none;
+  border-width:1;
 }
 
-h1
+td
 {
-  margin:0px;
-  padding:0px;
+  border-style: 1px solid black;
 }
+
+th 
+{
+  width: 20%;  
+}
+

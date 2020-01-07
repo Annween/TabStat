@@ -9,4 +9,7 @@ catch(Exception $e)
     die('Erreur : '.$e->getMessage());
 }
 
+$req = $bdd->query('SELECT name AS PROJETS FROM mantis_project_table');
+
+
 ?>
