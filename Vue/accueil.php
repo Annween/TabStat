@@ -32,13 +32,13 @@
               <td><th><p>Evolution</p></th></td>
               </tr>
 
-            <tr>
+          
             
             <?php
             
             while ($donnees = $req->fetch())
 
-            echo"<td>{$donnees['PROJETS']}</td>";
+            echo"<tr><td>{$donnees['PROJETS']}</td></tr>";
             ?>
             
             </tr>
