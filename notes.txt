@@ -11,3 +11,29 @@ Etat des supports :
 	supports clos :
 		80:résolu
 		90:fermé
+
+
+Exemple tbx imbriqués
+
+	<table id="liste">
+<?php while ($matieres = mysql_fetch_array($list_matieres))
+	{
+		$req_list_note = listNotes($matieres['id_matiere'], $_SESSION['id_releve']);
+		$req_moy_matiere = moyenne_matiere($matieres['id_matiere'], $_SESSION['id_releve']);
+		$moy_matiere = mysql_fetch_array($req_moy_matiere);
+		$aray_moyennes[] = ($moy_matiere['moyenne']) ;
+
+echo '<tr>
+	 		<th class="matiere taille">'.$matieres['libelle'].'</th>
+	 		<th class="matiere">'.number_format($moy_matiere['moyenne'],1, ',', '.').'</th>';
+
+while ($list_note = mysql_fetch_array($req_list_note)) 
+		{ echo '
+			<td style="border:1px solid black;">
+	 			<p class="coeff">'.number_format($list_note["coefficient"],1, ',', '.').'</p>	 			
+	 			<p class="note">'.number_format($list_note["note"],1, ',', '.').'</p>
+	 			<p class="bareme">'.number_format($list_note["bareme"],1, ',', '.').'</p>
+	 		</td>' ;
+		} ;
+} ?>
+	</table>
