@@ -1,1 +1,13 @@
-CONVERT(CHAR(10),dateadd(S, b.date_submitted , '1970-01-01'),103)
+Convertir unix timestamp sous sqlserver ;
+	CONVERT(CHAR(10),dateadd(S, b.date_submitted , '1970-01-01'),103)
+
+Etat des supports :
+	supports en cours:
+		10:nouveau
+		20:précisions requises
+		30:accepté
+		40:confirmé
+		50:affecté
+	supports clos :
+		80:résolu
+		90:fermé
