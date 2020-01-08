@@ -1,0 +1,1 @@
+CONVERT(CHAR(10),dateadd(S, b.date_submitted , '1970-01-01'),103)
