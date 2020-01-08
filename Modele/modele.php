@@ -15,7 +15,8 @@ catch(Exception $e)
 $req = $db->query('SELECT name AS PROJETS, id FROM mantis_project_table');
 	$req2 = $db->query('SELECT name AS PROJETS, id FROM mantis_project_table');
 	
-function comptage($id) { $req1 = query("SELECT project_id, tranche_delai, count(*) as count
+function comptage($id) { global $db;
+	$req1 = $db->query("SELECT project_id, tranche_delai, count(*) as count
 							FROM (SELECT id, project_id, DATEDIFF(NOW(),FROM_UNIXTIME(date_submitted)) as DELAI, 
 										CASE WHEN DATEDIFF(NOW(),FROM_UNIXTIME(date_submitted)) <=7 THEN 'Moins 7'
 											WHEN DATEDIFF(NOW(),FROM_UNIXTIME(date_submitted)) <=14 THEN '8-14'
