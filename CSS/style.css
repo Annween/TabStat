@@ -18,18 +18,21 @@
   border-bottom:0px solid black;
   padding-bottom:4px;
 }
-table 
+#Tab1
 {
-  border-width:1;
+  width: 10%;
+
 }
 
-td
+#Tab1 td, tr
 {
-  border-style: 1px solid black;
+  border-style: 1px 1px 1px 1px solid black;
 }
 
-th 
+#Tab1 th
 {
-  width: 20%;  
+  /*position: fixed;*/
 }
+
+
 

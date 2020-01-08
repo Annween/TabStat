@@ -17,7 +17,7 @@
         <div class="contenu_onglets">
             <div class="contenu_onglet" id="contenu_onglet_Tab1">
               
-              <table>
+              <table id="Tab1">
               <tr>
               <td><th><p>Projets</p></th></td>
               <td><th><p>7 jours et moins</p></th></td>
@@ -37,14 +37,32 @@
             <?php
             
             while ($donnees = $req->fetch())
+            
+            echo"<tr><td><br>{$donnees['PROJETS']}</td></tr>";
 
-            echo"<tr><td>{$donnees['PROJETS']}</td></tr>";
+            
+          
             ?>
             
-            </tr>
+      
 
 
               </table>
+
+
+<table id="liste">
+    
+<?php while ($donnees2 = $req2->fetch())
+  {
+    comptage($donnees2['id']);
+echo '<tr><td>'.$donnees2['PROJETS'].'</td>';
+
+while ($list = $req1->fetch() ) 
+    { echo '<td>'.$list['count'].'</td></tr>' ;}
+  } ?>
+  </table>
+
+
 
             </div>
 
@@ -63,3 +81,6 @@
 
 </body>
 </html>
+
+
+
