@@ -18,6 +18,7 @@
             <div class="contenu_onglet" id="contenu_onglet_Tab1">
               
               <table>
+              	<caption><br><h2>Nombre de supports en cours par projet et par état</h2></caption>
               <tr>
               <td width="10%><th">Projets</th></td>
               <td width="10%><th">7 jours et moins</th></td>
@@ -28,8 +29,6 @@
               <td width="10%><th">de 91 à 180 jours</th></td>
               <td width="10%><th">plus de 180 jours</th></td>
               <td width="10%><th">Total</th></td>
-              <td width="10%><th">Semaine S-1</th></td>
-              <td width="10%><th">Evolution</th></td>
               </tr>
 
           
@@ -40,25 +39,22 @@
             while ($donnees = $reqProjectList->fetch())
 			{
 			
-			  $reqLessAWeek = getLastWeek($bdd, $donnees['id']);
+			  $reqLessAWeek = getLastWeek($bdd, $donnees['id'], 'projet');
 			  /* Recuperation du nombre d'occurence du projet en cours qui ont entre 7 jours et 14 jours */
-			  $req7To14 = getFrom7To14($bdd, $donnees['id']);
+			  $req7To14 = getFrom7To14($bdd, $donnees['id'], 'projet');
 			  /* Recuperation du nombre d'occurence du projet en cours qui ont entre 15 jours et 21 jours */
-			  $req15To21 = getFrom15To21($bdd, $donnees['id']);
+			  $req15To21 = getFrom15To21($bdd, $donnees['id'], 'projet');
 			  /* Recuperation du nombre d'occurence du projet en cours qui ont entre 22 jours et 28 jours */
-			  $req22To28 = getFrom22To28($bdd, $donnees['id']);
+			  $req22To28 = getFrom22To28($bdd, $donnees['id'], 'projet');
 			  /* Recuperation du nombre d'occurence du projet en cours qui ont entre 29 jours et 90 jours */
-			  $req29To90 = getFrom29To90($bdd, $donnees['id']);
+			  $req29To90 = getFrom29To90($bdd, $donnees['id'], 'projet');
 			  /* Recuperation du nombre d'occurence du projet en cours qui ont entre 91 jours et 180 jours */
-			  $req91To180 = getFrom91To180($bdd, $donnees['id']);
+			  $req91To180 = getFrom91To180($bdd, $donnees['id'], 'projet');
 			  /* Recuperation du nombre d'occurence du projet en cours qui ont plus de 180 jours */
-			  $reqPlus180 = getMoreThan180($bdd, $donnees['id']);
+			  $reqPlus180 = getMoreThan180($bdd, $donnees['id'], 'projet');
 			  /* Recuperation du total */
-			  $reqTotal = getTotal($bdd, $donnees['id']);
+			  $reqTotal = getTotal($bdd, $donnees['id'], 'projet');
 
-			  $SMinusOne = (  ((int)$reqTotal['nbReqTotal']) - ((int)$reqLessAWeek['nbLessWeek']));
-
-              $diffEvo = (  ((int)$reqTotal['nbReqTotal'])- ((int)$SMinusOne));
 
 
 
@@ -89,10 +85,7 @@
 				/* Inscription du nombre de ticket total */
 				$buffData = $reqTotal;
 				echo "<td>".$buffData['nbReqTotal']."</td>";
-				/* Inscription de la diff semaine -1 */
-				echo "<td>".$SMinusOne."</td>";
-				/* Inscription de la diff finale */
-				echo "<td>".$diffEvo."</td>";
+
 			  echo "</tr>\n";
 			} 
             
@@ -103,9 +96,77 @@
 
 
 
-
-            <div class="contenu_onglet" id="contenu_onglet_Tab2">
+           <div class="contenu_onglet" id="contenu_onglet_Tab2">
                 <h1></h1>
+
+            <table>
+              	<caption><br><h2>Nombre de supports en cours par personne et par tranche d'ancienneté </h2></caption>
+              <tr>
+              <td width="10%><th">Projets</th></td>
+              <td width="10%><th">7 jours et moins</th></td>
+              <td width="10%><th">de 7 à 14 jours</th></td>
+              <td width="10%><th">de 15 à 21 jours</th></td>
+              <td width="10%><th">de 22 à 28 jours</th></td>
+              <td width="10%><th">de 29 à 90 jours</th></td>
+              <td width="10%><th">de 91 à 180 jours</th></td>
+              <td width="10%><th">plus de 180 jours</th></td>
+              <td width="10%><th">Total</th></td>
+
+              </tr>
+              <?php
+
+              while ($donnees = $reqPeople->fetch())
+            {
+              $reqLessAWeek = getLastWeek($bdd, $donnees['realname']);
+			  /* Recuperation du nombre d'occurence du projet en cours qui ont entre 7 jours et 14 jours */
+			  $req7To14 = getFrom7To14($bdd, $donnees['handler_id'],'user');
+			  /* Recuperation du nombre d'occurence du projet en cours qui ont entre 15 jours et 21 jours */
+			  $req15To21 = getFrom15To21($bdd, $donnees['handler_id'],'user');
+			  /* Recuperation du nombre d'occurence du projet en cours qui ont entre 22 jours et 28 jours */
+			  $req22To28 = getFrom22To28($bdd, $donnees['handler_id'],'user');
+			  /* Recuperation du nombre d'occurence du projet en cours qui ont entre 29 jours et 90 jours */
+			  $req29To90 = getFrom29To90($bdd, $donnees['handler_id'],'user');
+			  /* Recuperation du nombre d'occurence du projet en cours qui ont entre 91 jours et 180 jours */
+			  $req91To180 = getFrom91To180($bdd, $donnees['handler_id'],'user');
+			  /* Recuperation du nombre d'occurence du projet en cours qui ont plus de 180 jours */
+			  $reqPlus180 = getMoreThan180($bdd, $donnees['handler_id'],'user');
+			  /* Recuperation du total */
+			   $reqTotal = getTotal($bdd, $donnees['id']);
+
+			   echo "<tr>";
+			    /* Inscription du nom du projet */
+			    echo "<td>".$donnees['user']."</td>";
+				/* Inscription du nombre de ticket de moins d'une semaine */
+				$buffData = $reqLessAWeek;
+				echo "<td>".$buffData['nbLessWeek']."</td>";
+				/* Inscription du nombre de ticket de 7 à 14 jours */
+				$buffData = $req7To14;
+				echo "<td>".$buffData['nbReq7To14']."</td>";
+				/* Inscription du nombre de ticket de 15 à 21 jours */
+				$buffData = $req15To21;
+				echo "<td>".$buffData['nbReq15To21']."</td>";
+				/* Inscription du nombre de ticket de 22 à 28 jours */
+				$buffData = $req22To28;
+				echo "<td>".$buffData['nbReq22To28']."</td>";
+				/* Inscription du nombre de ticket de 29 à 90 jours */
+				$buffData = $req29To90;
+				echo "<td>".$buffData['nbReq29To90']."</td>";
+				/* Inscription du nombre de ticket de 91 à 180 jours */
+				$buffData = $req91To180;
+				echo "<td>".$buffData['nbReq91To180']."</td>";
+				/* Inscription du nombre de ticket de plus de 180 jours */
+				$buffData = $reqPlus180;
+				echo "<td>".$buffData['nbReqPlus180']."</td>";
+				/* Inscription du nombre de ticket total */
+				$buffData = $reqTotal;
+				echo "<td>".$buffData['nbReqTotal']."</td>";
+
+			  echo "</tr>\n"; 
+
+			}
+               
+              ?>
+
             </div>
             <div class="contenu_onglet" id="contenu_onglet_Tab3">
                 <h1></h1>

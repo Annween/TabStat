@@ -13,20 +13,15 @@
 {
 
   table-layout: fixed;
-
-
+  
 }
 
-#contenu_onglet_Tab1 td, tr
-{
-  border: 1px solid black;
-
-}
 #contenu_onglet_Tab1 td
-{ 
-  align-content: center;
-
+{
+ background-color:#ffffff;
+ border-collapse: collapse;
 }
+
 
 
 
