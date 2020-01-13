@@ -19,6 +19,7 @@
               
               <table>
               	<caption><br><h2>Nombre de supports en cours par projet et par état</h2></caption>
+              	<thead>
               <tr>
               <td width="10%><th">Projets</th></td>
               <td width="10%><th">7 jours et moins</th></td>
@@ -30,8 +31,8 @@
               <td width="10%><th">plus de 180 jours</th></td>
               <td width="10%><th">Total</th></td>
               </tr>
-
-          
+              </thead>
+          <tbody>
             
             <?php
             
@@ -90,7 +91,8 @@
 			} 
             
             ?>
-              </table>
+           		</tbody>
+           </table>
 
             </div>
 
@@ -101,6 +103,7 @@
 
             <table>
               	<caption><br><h2>Nombre de supports en cours par personne et par tranche d'ancienneté </h2></caption>
+              	<thead>
               <tr>
               <td width="10%><th">Projets</th></td>
               <td width="10%><th">7 jours et moins</th></td>
@@ -113,11 +116,13 @@
               <td width="10%><th">Total</th></td>
 
               </tr>
+              </thead>
+              <tbody>
               <?php
 
               while ($donnees = $reqPeople->fetch())
             {
-              $reqLessAWeek = getLastWeek($bdd, $donnees['realname']);
+              $reqLessAWeek = getLastWeek($bdd, $donnees['handler_id'],'user');
 			  /* Recuperation du nombre d'occurence du projet en cours qui ont entre 7 jours et 14 jours */
 			  $req7To14 = getFrom7To14($bdd, $donnees['handler_id'],'user');
 			  /* Recuperation du nombre d'occurence du projet en cours qui ont entre 15 jours et 21 jours */
@@ -131,11 +136,11 @@
 			  /* Recuperation du nombre d'occurence du projet en cours qui ont plus de 180 jours */
 			  $reqPlus180 = getMoreThan180($bdd, $donnees['handler_id'],'user');
 			  /* Recuperation du total */
-			   $reqTotal = getTotal($bdd, $donnees['id']);
+			   $reqTotal = getTotal($bdd, $donnees['handler_id'],'user');
 
 			   echo "<tr>";
 			    /* Inscription du nom du projet */
-			    echo "<td>".$donnees['user']."</td>";
+			    echo "<td>".$donnees['username']."</td>";
 				/* Inscription du nombre de ticket de moins d'une semaine */
 				$buffData = $reqLessAWeek;
 				echo "<td>".$buffData['nbLessWeek']."</td>";
@@ -166,11 +171,56 @@
 			}
                
               ?>
-
-            </div>
+              </tbody>
+	</table>
+          </div>
             <div class="contenu_onglet" id="contenu_onglet_Tab3">
-                <h1></h1>
-                
+              <table>
+              	<caption><br><h2>Nombre de supports en cours par projet et par état</h2></caption>
+              	<thead>
+              	  	<tr><br>
+              		<td><th>Années de dépôt</th></td>
+              		<td><th>Affecté</th></td>
+              		<td><th>Accepté</th></td>
+              		<td><th>Confirmé</th></td>
+              		<td><th>Précision requises</th></td>
+              		<td><th>Résolu</th></td>
+              		<td><th>Fermé</th></td>
+              		<td><th>Total général</th></td>
+              		</tr>
+                </thead>
+
+                <tbody>
+                	<?php
+
+                	while ($donnees = $reqDate->fetch())
+                	{
+                		$reqYear2018 = get2018($bdd, $donnees['Year2018']);
+
+
+
+
+
+
+
+                		echo "<tr>";
+			    		
+			    		echo "<td>".$donnees['DATES']."</td>";
+			    		$buffData = $reqYear2018;
+						echo "<td>".$buffData['Year2018']."</td>";
+			    		echo "</tr>";
+                	}
+
+
+
+
+
+
+
+
+
+                	  ?>
+                </tbody>
             </div>
         </div>
     </div>
