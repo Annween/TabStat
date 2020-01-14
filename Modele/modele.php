@@ -104,7 +104,7 @@ function getTotal($database, $id,$type)
 { 
 	if($type === 'projet')
 	{
-		return $database->query('SELECT COUNT(*) AS nbReqTotal FROM `mantis_bug_table` WHERE `project_id`='.$id.'')->fetch();
+		return $database->query('SELECT COUNT(*) AS nbReqTotal FROM `mantis_bug_table` WHERE `project_id`='.$id.' AND `mantis_bug_table`.`status` not in (80, 90)')->fetch();
 	}
 		else
 		{
@@ -114,13 +114,89 @@ function getTotal($database, $id,$type)
 
 $reqDate = $bdd -> query("SELECT DISTINCT FROM_UNIXTIME(`date_submitted`,'%Y') AS DATES FROM `mantis_bug_table` WHERE  FROM_UNIXTIME(`date_submitted`,'%Y') BETWEEN '2018' AND '2020'");
 
-function get2018 ($database)
+function getAffectedSupp ($database, $annee)
 {
-	return $database ->query('SELECT DISTINCT `e.libelle_support` COUNT(*) AS Year2018 FROM `mantis_bug_table` `b` INNER JOIN `etat_support` `e` ON `b.status` = `e.statut_support` WHERE FROM_UNIXTIME(`b.date_submitted`,`%Y`) = 2018 GROUP BY `b.status` ORDER BY `e.id`')->fetch(); 
+
+	return $database ->query("SELECT DISTINCT COUNT(*) AS AffectedSupp, `etat_support`.`libelle_support` 
+					      FROM `mantis_bug_table`
+					      INNER JOIN `etat_support`
+					      ON `mantis_bug_table`.`status` = `etat_support`.`statut_support`
+					      WHERE FROM_UNIXTIME(`mantis_bug_table`.`date_submitted`, '%Y') = ".$annee."
+					      GROUP BY `mantis_bug_table`.`status`
+					      ORDER BY `etat_support`.`id`")->fetch();
+	
+}
+
+function getAcceptedSupp($database, $annee)
+{	
+		return $database ->query("SELECT DISTINCT COUNT(*) AS AcceptedSupp, `etat_support`.`libelle_support` 
+					      FROM `mantis_bug_table`
+					      INNER JOIN `etat_support`
+					      ON `mantis_bug_table`.`status` = `etat_support`.`statut_support` 
+					      WHERE FROM_UNIXTIME(`mantis_bug_table`.`date_submitted`, '%Y') = ".$annee." AND `status` = '30'
+					      GROUP BY `mantis_bug_table`.`status`
+					      ORDER BY `etat_support`.`id`")->fetch();
+}
+
+function getConfirmedSupp($database, $annee)
+{	
+		return $database ->query("SELECT DISTINCT COUNT(*) AS ConfirmedSupp, `etat_support`.`libelle_support` 
+					      FROM `mantis_bug_table`
+					      INNER JOIN `etat_support`
+					      ON `mantis_bug_table`.`status` = `etat_support`.`statut_support` 
+					      WHERE FROM_UNIXTIME(`mantis_bug_table`.`date_submitted`, '%Y') = ".$annee." AND `status` = '40'
+					      GROUP BY `mantis_bug_table`.`status`
+					      ORDER BY `etat_support`.`id`
+					      ")->fetch();
+}
+
+function getPrecisionSupp($database, $annee)
+{	
+		return $database ->query("SELECT DISTINCT COUNT(*) AS PrecisionSupp, `etat_support`.`libelle_support` 
+					      FROM `mantis_bug_table`
+					      INNER JOIN `etat_support`
+					      ON `mantis_bug_table`.`status` = `etat_support`.`statut_support` 
+					      WHERE FROM_UNIXTIME(`mantis_bug_table`.`date_submitted`, '%Y') = ".$annee." AND `status` = '20'
+					      GROUP BY `mantis_bug_table`.`status`
+					      ORDER BY `etat_support`.`id`")->fetch();
+}
+
+function getSolvedSupp($database, $annee)
+{	
+		return $database ->query("SELECT DISTINCT COUNT(*) AS SolvedSupp, `etat_support`.`libelle_support` 
+					      FROM `mantis_bug_table`
+					      INNER JOIN `etat_support`
+					      ON `mantis_bug_table`.`status` = `etat_support`.`statut_support` 
+					      WHERE FROM_UNIXTIME(`mantis_bug_table`.`date_submitted`, '%Y') = ".$annee." AND `status` = '80'
+					      GROUP BY `mantis_bug_table`.`status`
+					      ORDER BY `etat_support`.`id`")->fetch();
 }
 
 
 
+function getClosedSupp($database, $annee)
+{	
+		return $database ->query("SELECT DISTINCT COUNT(*) AS ClosedSupp, `etat_support`.`libelle_support` 
+					      FROM `mantis_bug_table`
+					      INNER JOIN `etat_support`
+					      ON `mantis_bug_table`.`status` = `etat_support`.`statut_support` 
+					      WHERE FROM_UNIXTIME(`mantis_bug_table`.`date_submitted`, '%Y') = ".$annee." AND `status` = '90'
+					      GROUP BY `mantis_bug_table`.`status`
+					      ORDER BY `etat_support`.`id`")->fetch();
+}
 
+function GetTotalG($database, $annee)
+{
+	return $database ->query("SELECT DISTINCT COUNT(*)  As TotalG  
+	FROM `mantis_bug_table`
+    WHERE FROM_UNIXTIME(`mantis_bug_table`.`date_submitted`, '%Y') = ".$annee."")->fetch();
 
-?>
+}
+
+function GetEachTotal($database, $statut)
+{
+	return $database ->query("SELECT DISTINCT COUNT(*)  As EachTotal 
+	FROM  `etat_support`
+    WHERE  `etat_support`.`statut_support` = ".$statut." ")->fetch();
+
+}

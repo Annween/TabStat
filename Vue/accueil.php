@@ -179,14 +179,14 @@
               	<caption><br><h2>Nombre de supports en cours par projet et par état</h2></caption>
               	<thead>
               	  	<tr><br>
-              		<td><th>Années de dépôt</th></td>
-              		<td><th>Affecté</th></td>
-              		<td><th>Accepté</th></td>
-              		<td><th>Confirmé</th></td>
-              		<td><th>Précision requises</th></td>
-              		<td><th>Résolu</th></td>
-              		<td><th>Fermé</th></td>
-              		<td><th>Total général</th></td>
+              		<td width="10%><th">Années de dépôt</th></td>
+              		<td width="10%><th">Affecté</th></td>
+              		<td width="10%><th">Accepté</th></td>
+              		<td width="10%><th">Confirmé</th></td>
+              		<td width="10%><th">Précision requises</th></td>
+              		<td width="10%><th">Résolu</th></td>
+              		<td width="10%><th">Fermé</th></td>
+              		<td width="10%><th">Total général</th></td>
               		</tr>
                 </thead>
 
@@ -194,23 +194,52 @@
                 	<?php
 
                 	while ($donnees = $reqDate->fetch())
-                	{
-                		$reqYear2018 = get2018($bdd, $donnees['Year2018']);
+                	{	
+                		/*Affiche les supports affectés */
+                		$reqAffected = getAffectedSupp($bdd, $donnees['DATES']);
+                		/*Affiche les supports acceptés */
+                		$reqAccepted = getAcceptedSupp($bdd, $donnees['DATES']);
+                		/*Affiche les supports confirmés */
+                		$reqConfirmed= getConfirmedSupp($bdd, $donnees['DATES']);
+                		/*Affiche les supports qui requiert des précisions */
+                		$reqPrecision=getPrecisionSupp($bdd, $donnees['DATES']);
+                		/*Affiche les supports résolu */
+                		$reqSolved=getSolvedSupp($bdd, $donnees['DATES']);
+                		/*Affiche les supports fermés */
+                		$reqClosed=getClosedSupp($bdd, $donnees['DATES']);
 
-
-
-
+                		$reqTotalG = getTotalG($bdd, $donnees['DATES']);
+                		$reqEachTotal = getEachTotal($bdd, $donnees['DATES']);
 
 
 
                 		echo "<tr>";
 			    		
 			    		echo "<td>".$donnees['DATES']."</td>";
-			    		$buffData = $reqYear2018;
-						echo "<td>".$buffData['Year2018']."</td>";
-			    		echo "</tr>";
-                	}
+			    		$buffData = $reqAffected;
+						echo "<td>".$buffData['AffectedSupp'] ."</td>";
+						$buffData = $reqAccepted;
+						echo "<td>".$buffData['AcceptedSupp']."</td>";
+						$buffData = $reqConfirmed;
+						echo "<td>".$buffData['ConfirmedSupp']."</td>";
+						$buffData = $reqPrecision;
+						echo "<td>".$buffData['PrecisionSupp']."</td>";
+						$buffData = $reqSolved;
+						echo "<td>".$buffData['SolvedSupp']."</td>";
+						$buffData = $reqClosed;
+						echo "<td>".$buffData['ClosedSupp']."</td>";
+						$buffData = $reqTotalG;
+						echo "<td>".$buffData['TotalG']."</td>";
 
+
+
+						echo "</tr>";		
+			    		
+                	}
+                	echo "<tr>";
+			    		$buffData = $reqEachTotal;
+						echo '<td width = "10%"> Total'.$buffData['EachTotal']."</td>"."<tr>";
+					echo "</tr>";
 
 
 
