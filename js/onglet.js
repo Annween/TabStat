@@ -7,6 +7,6 @@ function change_onglet(name)
     document.getElementById('contenu_onglet_'+name).style.display = 'block';
     anc_onglet = name;
 }
-var anc_onglet = 'Tab1'; // fonction qui permet de changer d'onglet
+var anc_onglet = 'Tab'; // fonction qui permet de changer d'onglet
 change_onglet(anc_onglet);
 

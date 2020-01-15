@@ -10,109 +10,28 @@ catch(Exception $e)
 }
 
 $reqProjectList = $bdd->query('SELECT id, name FROM mantis_project_table');
+$reqProjectList1 = $bdd->query('SELECT id, name FROM mantis_project_table');
 $reqPeople = $bdd->query('SELECT DISTINCT `mantis_user_table`.`realname` AS username, `mantis_bug_table`.`handler_id` as handler_id FROM `mantis_bug_table`, `mantis_user_table` WHERE `mantis_user_table`.`id` =  `mantis_bug_table`.`handler_id` AND `status` not in (80, 90)');
 
 
 /* Fonctions pour TAB1 */ 
- function getLastWeek($database, $id,$type)
-{	if($type === 'projet') /* on met === pour éviter le transtypage */ 
-	{
-		return $database->query('SELECT COUNT(*) AS nbLessWeek FROM `mantis_bug_table` WHERE `project_id`='.$id.' AND DATEDIFF(NOW(),FROM_UNIXTIME(date_submitted)) <= 7 AND `status` not in (80, 90)')->fetch();
-	}
-		else 
-		{
-			return $database->query('SELECT COUNT(*) AS nbLessWeek FROM `mantis_bug_table` WHERE `handler_id`='.$id.' AND DATEDIFF(NOW(),FROM_UNIXTIME(date_submitted)) <= 7 AND `status` not in (80, 90)')->fetch();
-
-		}
-}
-
-function getFrom7To14($database, $id, $type)
+ function getSupportsEnCours($database, $id,$type, $min, $max)
 { 
 	if($type === 'projet') 
 	{
-		return $database->query('SELECT COUNT(*) AS nbReq7To14 FROM `mantis_bug_table` WHERE `project_id`='.$id.' AND DATEDIFF(NOW(),FROM_UNIXTIME(date_submitted)) > 7 AND DATEDIFF(NOW(),FROM_UNIXTIME(date_submitted)) <= 14 AND `status` not in (80, 90)')->fetch();
+		return $database->query('SELECT COUNT(*) AS NB FROM `mantis_bug_table` WHERE `project_id`='.$id.' AND DATEDIFF(NOW(),FROM_UNIXTIME(date_submitted)) > '.$min.' AND DATEDIFF(NOW(),FROM_UNIXTIME(date_submitted)) <= '.$max.' AND `status` not in (80, 90)')->fetch();
 	} 
-		else 
+		elseif($type === 'user')  
 		{
-			return $database->query('SELECT COUNT(*) AS nbReq7To14 FROM `mantis_bug_table` WHERE `handler_id`='.$id.' AND DATEDIFF(NOW(),FROM_UNIXTIME(date_submitted)) > 7 AND DATEDIFF(NOW(),FROM_UNIXTIME(date_submitted)) <= 14 AND `status` not in (80, 90)')->fetch();
-		}
-}
-
-function getFrom15To21($database, $id, $type)
-{	
-	if($type === 'projet') 
-	{
-		return $database->query('SELECT COUNT(*) AS nbReq15To21 FROM `mantis_bug_table` WHERE `project_id`='.$id.' AND DATEDIFF(NOW(),FROM_UNIXTIME(date_submitted)) > 15 AND DATEDIFF(NOW(),FROM_UNIXTIME(date_submitted)) <= 21 AND `status` not in (80, 90)')->fetch();
-	}
-		else
-		{
-			return $database->query('SELECT COUNT(*) AS nbReq15To21 FROM `mantis_bug_table` WHERE `handler_id`='.$id.' AND DATEDIFF(NOW(),FROM_UNIXTIME(date_submitted)) > 15 AND DATEDIFF(NOW(),FROM_UNIXTIME(date_submitted)) <= 21 AND `status` not in (80, 90)')->fetch();
-		}
-}
-
-function getFrom22To28($database, $id,$type)
-{
-	if($type === 'projet') 
-	{
-		return $database->query('SELECT COUNT(*) AS nbReq22To28 FROM `mantis_bug_table` WHERE `project_id`='.$id.' AND DATEDIFF(NOW(),FROM_UNIXTIME(date_submitted)) > 22 AND DATEDIFF(NOW(),FROM_UNIXTIME(date_submitted)) <= 28 AND `status` not in (80, 90)')->fetch();
-	}
-		else
-		{
-			return $database->query('SELECT COUNT(*) AS nbReq22To28 FROM `mantis_bug_table` WHERE `handler_id`='.$id.' AND DATEDIFF(NOW(),FROM_UNIXTIME(date_submitted)) > 22 AND DATEDIFF(NOW(),FROM_UNIXTIME(date_submitted)) <= 28 AND `status` not in (80, 90)')->fetch();
-
-		}
-}
-
-function getFrom29To90($database, $id,$type)
-{
-	if($type === 'projet') 
-	{
-		return $database->query('SELECT COUNT(*) AS nbReq29To90 FROM `mantis_bug_table` WHERE `project_id`='.$id.' AND DATEDIFF(NOW(),FROM_UNIXTIME(date_submitted)) > 29 AND DATEDIFF(NOW(),FROM_UNIXTIME(date_submitted)) <= 90 AND `status` not in (80, 90)')->fetch();
-	} 
-		else
-		{
-			return $database->query('SELECT COUNT(*) AS nbReq29To90 FROM `mantis_bug_table` WHERE `handler_id`='.$id.' AND DATEDIFF(NOW(),FROM_UNIXTIME(date_submitted)) > 29 AND DATEDIFF(NOW(),FROM_UNIXTIME(date_submitted)) <= 90 AND `status` not in (80, 90)')->fetch();
-		}
-}
-
-function getFrom91To180($database, $id,$type)
-{
-	if($type === 'projet') 
-	{
-		return $database->query('SELECT COUNT(*) AS nbReq91To180 FROM `mantis_bug_table` WHERE `project_id`='.$id.' AND DATEDIFF(NOW(),FROM_UNIXTIME(date_submitted)) > 90 AND DATEDIFF(NOW(),FROM_UNIXTIME(date_submitted)) <= 180 AND `status` not in (80, 90)')->fetch();
-	}
-		else
-		{
-			return $database->query('SELECT COUNT(*) AS nbReq91To180 FROM `mantis_bug_table` WHERE `handler_id`='.$id.' AND DATEDIFF(NOW(),FROM_UNIXTIME(date_submitted)) > 90 AND DATEDIFF(NOW(),FROM_UNIXTIME(date_submitted)) <= 180 AND `status` not in (80, 90)')->fetch();
-		}
-}
-
-function getMoreThan180($database, $id,$type)
-{ 
-	if($type === 'projet')
-	{
-		return $database->query('SELECT COUNT(*) AS nbReqPlus180 FROM `mantis_bug_table` WHERE `project_id`='.$id.' AND DATEDIFF(NOW(),FROM_UNIXTIME(date_submitted)) > 180 AND `status` not in (80, 90)')->fetch();
-	}
-  		else
-		{
-			return $database->query('SELECT COUNT(*) AS nbReqPlus180 FROM `mantis_bug_table` WHERE `handler_id`='.$id.' AND DATEDIFF(NOW(),FROM_UNIXTIME(date_submitted)) > 180 AND `status` not in (80, 90)')->fetch();
+			return $database->query('SELECT COUNT(*) AS NB FROM `mantis_bug_table` WHERE `handler_id`='.$id.' AND DATEDIFF(NOW(),FROM_UNIXTIME(date_submitted)) > '.$min.' AND DATEDIFF(NOW(),FROM_UNIXTIME(date_submitted)) <= '.$max.' AND `status` not in (80, 90)')->fetch();
 		}
 }
 
 
-function getTotal($database, $id,$type)
-{ 
-	if($type === 'projet')
-	{
-		return $database->query('SELECT COUNT(*) AS nbReqTotal FROM `mantis_bug_table` WHERE `project_id`='.$id.' AND `mantis_bug_table`.`status` not in (80, 90)')->fetch();
-	}
-		else
-		{
-			return $database->query('SELECT DISTINCT COUNT(*) AS nbReqTotal FROM `mantis_bug_table`, `mantis_user_table` WHERE `handler_id`='.$id.' AND `mantis_user_table`.`id` =  `mantis_bug_table`.`handler_id` AND `status` not in (80, 90)')->fetch();
-		}
-}
 
-$reqDate = $bdd -> query("SELECT DISTINCT FROM_UNIXTIME(`date_submitted`,'%Y') AS DATES FROM `mantis_bug_table` WHERE  FROM_UNIXTIME(`date_submitted`,'%Y') BETWEEN '2018' AND '2020'");
+
+$reqDate = $bdd -> query("SELECT DISTINCT FROM_UNIXTIME(`date_submitted`,'%Y') AS DATES FROM `mantis_bug_table` WHERE  FROM_UNIXTIME(`date_submitted`,'%Y') BETWEEN '2018' AND '2020'
+	UNION SELECT '2018,2019,2020' "); 
 
 function getAffectedSupp ($database, $annee)
 {
@@ -121,7 +40,8 @@ function getAffectedSupp ($database, $annee)
 					      FROM `mantis_bug_table`
 					      INNER JOIN `etat_support`
 					      ON `mantis_bug_table`.`status` = `etat_support`.`statut_support`
-					      WHERE FROM_UNIXTIME(`mantis_bug_table`.`date_submitted`, '%Y') = ".$annee."
+					      WHERE FROM_UNIXTIME(`mantis_bug_table`.`date_submitted`, '%Y') 
+					      IN (".$annee.") AND `status` = '50'
 					      GROUP BY `mantis_bug_table`.`status`
 					      ORDER BY `etat_support`.`id`")->fetch();
 	
@@ -133,7 +53,8 @@ function getAcceptedSupp($database, $annee)
 					      FROM `mantis_bug_table`
 					      INNER JOIN `etat_support`
 					      ON `mantis_bug_table`.`status` = `etat_support`.`statut_support` 
-					      WHERE FROM_UNIXTIME(`mantis_bug_table`.`date_submitted`, '%Y') = ".$annee." AND `status` = '30'
+					      WHERE FROM_UNIXTIME(`mantis_bug_table`.`date_submitted`, '%Y') 
+					      IN (".$annee.") AND `status` = '30'
 					      GROUP BY `mantis_bug_table`.`status`
 					      ORDER BY `etat_support`.`id`")->fetch();
 }
@@ -144,7 +65,8 @@ function getConfirmedSupp($database, $annee)
 					      FROM `mantis_bug_table`
 					      INNER JOIN `etat_support`
 					      ON `mantis_bug_table`.`status` = `etat_support`.`statut_support` 
-					      WHERE FROM_UNIXTIME(`mantis_bug_table`.`date_submitted`, '%Y') = ".$annee." AND `status` = '40'
+					      WHERE FROM_UNIXTIME(`mantis_bug_table`.`date_submitted`, '%Y') 
+					      IN (".$annee.") AND `status` = '40'
 					      GROUP BY `mantis_bug_table`.`status`
 					      ORDER BY `etat_support`.`id`
 					      ")->fetch();
@@ -156,7 +78,8 @@ function getPrecisionSupp($database, $annee)
 					      FROM `mantis_bug_table`
 					      INNER JOIN `etat_support`
 					      ON `mantis_bug_table`.`status` = `etat_support`.`statut_support` 
-					      WHERE FROM_UNIXTIME(`mantis_bug_table`.`date_submitted`, '%Y') = ".$annee." AND `status` = '20'
+					      WHERE FROM_UNIXTIME(`mantis_bug_table`.`date_submitted`, '%Y') 
+					      IN (".$annee.") AND `status` = '20'
 					      GROUP BY `mantis_bug_table`.`status`
 					      ORDER BY `etat_support`.`id`")->fetch();
 }
@@ -167,7 +90,8 @@ function getSolvedSupp($database, $annee)
 					      FROM `mantis_bug_table`
 					      INNER JOIN `etat_support`
 					      ON `mantis_bug_table`.`status` = `etat_support`.`statut_support` 
-					      WHERE FROM_UNIXTIME(`mantis_bug_table`.`date_submitted`, '%Y') = ".$annee." AND `status` = '80'
+					      WHERE FROM_UNIXTIME(`mantis_bug_table`.`date_submitted`, '%Y') 
+					      IN (".$annee.") AND `status` = '80'
 					      GROUP BY `mantis_bug_table`.`status`
 					      ORDER BY `etat_support`.`id`")->fetch();
 }
@@ -180,7 +104,8 @@ function getClosedSupp($database, $annee)
 					      FROM `mantis_bug_table`
 					      INNER JOIN `etat_support`
 					      ON `mantis_bug_table`.`status` = `etat_support`.`statut_support` 
-					      WHERE FROM_UNIXTIME(`mantis_bug_table`.`date_submitted`, '%Y') = ".$annee." AND `status` = '90'
+					      WHERE FROM_UNIXTIME(`mantis_bug_table`.`date_submitted`, '%Y') 
+					      IN (".$annee.") AND `status` = '90'
 					      GROUP BY `mantis_bug_table`.`status`
 					      ORDER BY `etat_support`.`id`")->fetch();
 }
@@ -189,14 +114,25 @@ function GetTotalG($database, $annee)
 {
 	return $database ->query("SELECT DISTINCT COUNT(*)  As TotalG  
 	FROM `mantis_bug_table`
-    WHERE FROM_UNIXTIME(`mantis_bug_table`.`date_submitted`, '%Y') = ".$annee."")->fetch();
+    WHERE FROM_UNIXTIME(`mantis_bug_table`.`date_submitted`, '%Y') 
+    IN (".$annee.") ")->fetch();
 
 }
 
-function GetEachTotal($database, $statut)
+
+
+$reqMonths = $bdd->query('SELECT DISTINCT MONTH(FROM_UNIXTIME(`date_submitted`)) AS MOIS FROM mantis_bug_table ORDER BY MONTH(FROM_UNIXTIME(`date_submitted`))');
+
+function getJanuary($database, $id)
+{	
+	return $database ->query("SELECT  COUNT(*) AS JANVIER FROM `mantis_bug_table` WHERE `project_id`=".$id."  AND MONTH(FROM_UNIXTIME(`date_submitted`)) = '1' AND YEAR(FROM_UNIXTIME(`date_submitted`)) = '2019' ")->fetch();
+
+}
+
+function FunctionName($value='')
 {
-	return $database ->query("SELECT DISTINCT COUNT(*)  As EachTotal 
-	FROM  `etat_support`
-    WHERE  `etat_support`.`statut_support` = ".$statut." ")->fetch();
-
+	# code...
 }
+
+
+?>

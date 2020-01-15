@@ -38,8 +38,7 @@ while ($list_note = mysql_fetch_array($req_list_note))
 } ?>
 	</table>
 
-	SELECT
-  DISTINCT `etat_support`.`libelle_support` COUNT(*) AS Year2018
+SELECT DISTINCT `etat_support`.`libelle_support` COUNT(*) AS Year2018
 FROM
   `mantis_bug_table`
   INNER JOIN `etat_support`,
