@@ -1,3 +1,7 @@
+
+/* ---------------------------------------------------
+                      1. ONGLETS
+----------------------------------------------------- */
 .onglet
 {
   display:inline-block;
@@ -8,15 +12,28 @@
   cursor:pointer;
 }
 
+/* ---------------------------------------------------
+                      2. TABLEAUX
+----------------------------------------------------- */
 
-tbody
+table
 {
-  border-collapse: collapse;
-  table-layout: fixed;
-  border: 1px solid black;
-  
+
+  border-collapse:collapse;
+  display:table;
 }
 
+table, td 
+{
+  border:1px solid black;
+  border-spacing: 5px;
+
+}
+
+table, th
+{
+  border:1px solid black;
+}
 
 
 

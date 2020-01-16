@@ -7,6 +7,7 @@
 	<title>TabStats</title>
 </head>
 <body>
+
 	 <div class="systeme_onglets">
         <div class="onglets">
             <span class="onglet_0 onglet" id="onglet_Tab1" onclick="change_onglet('Tab1');">Tab 1</span>
@@ -196,57 +197,52 @@
                 	<?php
 
                 	while ($donnees = $reqDate->fetch()) 
+
                 	{	
                 		/*Affiche les supports affectés */
-                		$reqAffected = getAffectedSupp($bdd, $donnees['DATES']);
+                		$reqAffected = getEtatSupp($bdd, $donnees['DATES'], 50);
                 		/*Affiche les supports acceptés */
-                		$reqAccepted = getAcceptedSupp($bdd, $donnees['DATES']);
+                		$reqAccepted = getEtatSupp($bdd, $donnees['DATES'], 30);
                 		/*Affiche les supports confirmés */
-                		$reqConfirmed= getConfirmedSupp($bdd, $donnees['DATES']);
+                		$reqConfirmed= getEtatSupp($bdd, $donnees['DATES'],40);
                 		/*Affiche les supports qui requiert des précisions */
-                		$reqPrecision=getPrecisionSupp($bdd, $donnees['DATES']);
+                		$reqPrecision=getEtatSupp($bdd, $donnees['DATES'],20);
                 		/*Affiche les supports résolu */
-                		$reqSolved=getSolvedSupp($bdd, $donnees['DATES']);
+                		$reqSolved=getEtatSupp($bdd, $donnees['DATES'],80);
                 		/*Affiche les supports fermés */
-                		$reqClosed=getClosedSupp($bdd, $donnees['DATES']);
+                		$reqClosed=getEtatSupp($bdd, $donnees['DATES'],90);
 
                 		$reqTotalG = getTotalG($bdd, $donnees['DATES']);
                 		//$reqEachTotal = getEachTotal($bdd, $donnees['DATES']);
 
 
-
+ 				
+          
+                		
                 		echo "<tr>";
 			    		
 			    		echo "<td>".$donnees['DATES']."</td>";
 			    		$buffData = $reqAffected;
-						echo "<td>".$buffData['AffectedSupp'] ."</td>";
+						echo "<td>".$buffData['EtatSupp'] ."</td>";
 						$buffData = $reqAccepted;
-						echo "<td>".$buffData['AcceptedSupp']."</td>";
+						echo "<td>".$buffData['EtatSupp']."</td>";
 						$buffData = $reqConfirmed;
-						echo "<td>".$buffData['ConfirmedSupp']."</td>";
+						echo "<td>".$buffData['EtatSupp']."</td>";
 						$buffData = $reqPrecision;
-						echo "<td>".$buffData['PrecisionSupp']."</td>";
+						echo "<td>".$buffData['EtatSupp']."</td>";
 						$buffData = $reqSolved;
-						echo "<td>".$buffData['SolvedSupp']."</td>";
+						echo "<td>".$buffData['EtatSupp']."</td>";
 						$buffData = $reqClosed;
-						echo "<td>".$buffData['ClosedSupp']."</td>";
+						echo "<td>".$buffData['EtatSupp']."</td>";
 						$buffData = $reqTotalG;
 						echo "<td>".$buffData['TotalG']."</td>";
 
 
 
-						echo "</tr>";		
+						echo "</tr>";	
+							
 			    		
                 	}
-                	//echo "<tr>";
-			    	//	//$buffData = $reqEachTotal;
-					//	//echo '<td width = "10%"> Total'.$buffData['EachTotal']."</td>"."<tr>";
-					//echo "</tr>";
-
-
-
-
-
 
 
 
@@ -266,7 +262,7 @@
               		{	
               			echo "<th>";
 
-			    		echo "<td width=10%>".$donnees['MOIS']."</td>";
+			    		echo "<td width = 10% border-spacing= 5px>".$donnees['MOIS']."</td>";
 			    		echo "</th>";
 			    	}
 
@@ -277,20 +273,61 @@
                 	<?php
                 	while  ($donnees = $reqProjectList1->fetch())
                 	{
-                		$reqJanuary = getJanuary($bdd, $donnees['id']);
+                		$reqJanuary = getMonthSupp($bdd, $donnees['id'], 1, 2019);
+                		$reqFebuary = getMonthSupp($bdd, $donnees['id'], 2, 2019);
+                		$reqMarch = getMonthSupp($bdd, $donnees['id'], 3, 2019);
+                		$reqApril = getMonthSupp($bdd, $donnees['id'], 4, 2019);
+                		$reqMay = getMonthSupp($bdd, $donnees['id'], 5, 2019);
+                		$reqJune = getMonthSupp($bdd, $donnees['id'], 6, 2019);
+                		$reqJuly = getMonthSupp($bdd, $donnees['id'], 7, 2019);
+                		$reqAugust = getMonthSupp($bdd, $donnees['id'], 8, 2019);
+                		$reqSeptember = getMonthSupp($bdd, $donnees['id'], 9, 2019);
+                		$reqOctober = getMonthSupp($bdd, $donnees['id'], 10, 2019);
+                		$reqNovember = getMonthSupp($bdd, $donnees['id'], 11, 2019);
+                		$reqDecember = getMonthSupp($bdd, $donnees['id'], 12, 2019);
 
 
 
+                		echo "<tr width = 10% border-spacing= 5px>";
 
-
-
-
-
-
-                		echo "<tr>";
-			    		echo "<td width=10%>".$donnees['name']."</td>";
+			    		echo "<td>".$donnees['name']."</td>";
 			    		$buffData = $reqJanuary;
-						echo "<td>".$buffData['JANVIER'] ."</td>";
+						echo "<td>".$buffData['SuppMonths'] ."</td>";
+
+						$buffData = $reqFebuary;
+						echo "<td>".$buffData['SuppMonths'] ."</td>";
+
+						$buffData = $reqMarch;
+						echo "<td>".$buffData['SuppMonths'] ."</td>";
+
+						$buffData = $reqApril;
+						echo "<td>".$buffData['SuppMonths'] ."</td>";
+
+						$buffData = $reqMay;
+						echo "<td>".$buffData['SuppMonths'] ."</td>";
+
+						$buffData = $reqJune;
+						echo "<td>".$buffData['SuppMonths'] ."</td>";
+
+						$buffData = $reqJuly;
+						echo "<td>".$buffData['SuppMonths'] ."</td>";
+
+						$buffData = $reqAugust;
+						echo "<td>".$buffData['SuppMonths'] ."</td>";
+
+						$buffData = $reqSeptember;
+						echo "<td>".$buffData['SuppMonths'] ."</td>";
+
+						$buffData = $reqOctober;
+						echo "<td>".$buffData['SuppMonths'] ."</td>";
+
+						$buffData = $reqNovember;
+						echo "<td>".$buffData['SuppMonths'] ."</td>";
+
+						$buffData = $reqDecember;
+						echo "<td>".$buffData['SuppMonths'] ."</td>";
+
+					
 			    		echo "</tr>";
 					} 
 

@@ -51,3 +51,6 @@ ORDER BY
   `etat_support`.`id`
 
 
+if (null==($min && $max )) 
+	{
+	 return $database ->query("DELETE  FROM `mantis_bug_table` WHERE ".$id." AND ".$min." AND ".$max." IS NULL ")->fetch();
