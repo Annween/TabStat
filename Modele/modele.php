@@ -16,17 +16,22 @@ $reqPeople = $bdd->query('SELECT DISTINCT `mantis_user_table`.`realname` AS user
 
 /* Fonctions pour TAB1 */ 
  function getSupportsEnCours($database, $id,$type, $min, $max)
-{
-
-	if($type === 'projet') 
+{	
+	/*if ($id && $min && $max === 0)
 	{
-		return $database->query('SELECT COUNT(*) AS NB 	FROM `mantis_bug_table` WHERE `project_id`='.$id.' AND DATEDIFF(NOW(),FROM_UNIXTIME(	date_submitted)) > '.$min.' AND DATEDIFF(NOW(),FROM_UNIXTIME(date_submitted)) <= '.$max.' AND `status` not in (80, 90) ')->fetch();
-	} 
-		elseif($type === 'user')  
+		return $database ->query('DELETE `project_id`, `date_submitted`  FROM `mantis_bug_table` WHERE '.$id.' AND '.$min.' AND '.$max.' IS NULL')->fetch();
+	} */ 
+	
+		if($type === 'projet') 
 		{
-			return $database->query('SELECT COUNT(*) AS NB FROM `mantis_bug_table`WHERE `handler_id`='.$id.' AND DATEDIFF(	NOW(),FROM_UNIXTIME(date_submitted)) > '.$min.' AND DATEDIFF(NOW(),FROM_UNIXTIME(date_submitted)) <= '.$max.' AND `status` 	not in (80, 90)')->fetch();
-		}
+			return $database->query('SELECT COUNT(*) AS NB FROM `mantis_bug_table` WHERE `project_id`='.$id.' AND DATEDIFF(NOW(),FROM_UNIXTIME(date_submitted)) > '.$min.' AND DATEDIFF(NOW(),FROM_UNIXTIME(date_submitted)) <= '.$max.' AND `status` not in (80, 90) ')->fetch();
+		} 
+			elseif($type === 'user')  
+			{
+				return $database->query('SELECT COUNT(*) AS NB FROM `mantis_bug_table`WHERE `handler_id`='.$id.' AND DATEDIFF(	NOW(),FROM_UNIXTIME(date_submitted)) > '.$min.' AND DATEDIFF(NOW(),FROM_UNIXTIME(date_submitted)) <= '.$max.' AND `status` 	not in (80, 90)')->fetch();
+			}
 
+		
 }
 
 

@@ -4,9 +4,13 @@
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 	<link type="text/css" rel="stylesheet" media="all" title="CSS" href="../CSS/style.css" />
   <script type="text/javascript" src="../js/onglet.js"></script>
+  
+
 	<title>TabStats</title>
 </head>
 <body>
+	  
+
 
 	 <div class="systeme_onglets">
         <div class="onglets">

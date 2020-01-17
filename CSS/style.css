@@ -1,15 +1,29 @@
 
+
+
 /* ---------------------------------------------------
                       1. ONGLETS
 ----------------------------------------------------- */
 .onglet
 {
-  display:inline-block;
-  margin-left:3px;
-  margin-right:3px;
+ 
+
   padding:3px;
   border:1px solid black;
   cursor:pointer;
+  display: inline-block;
+  width: 500px;
+  margin: 100px auto;
+  padding: 0;
+  background: linear-gradient(deepskyblue, dodgerblue);
+  background: -webkit-linear-gradient(deepskyblue, dodgerblue);
+  background:    -moz-linear-gradient(deepskyblue, dodgerblue);
+  background:     -ms-linear-gradient(deepskyblue, dodgerblue);
+  background:      -o-linear-gradient(deepskyblue, dodgerblue);
+  background:         linear-gradient(deepskyblue, dodgerblue);
+  background: dodgerblue;
+  border-radius: 3px;
+ 
 }
 
 /* ---------------------------------------------------
@@ -34,6 +48,7 @@ table, th
 {
   border:1px solid black;
 }
+
 
 
 
