@@ -1,41 +1,50 @@
 <!DOCTYPE html>
-<html>
+<html lang="fr">
+
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-	<link type="text/css" rel="stylesheet" media="all" title="CSS" href="../CSS/style.css" />
-  <script type="text/javascript" src="../js/onglet.js"></script>
+	<link type="text/css" rel="stylesheet" media="all" title="CSS" href="/CSS/style.css" />
+  <script type="text/javascript" src="/js/onglet.js"></script>
+  <script type="text/javascript" src="/js/fixed_header.js"></script>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+  <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
   
 
 	<title>TabStats</title>
 </head>
 <body>
+	<div class="loader"></div>
 	  
 
 
-	 <div class="systeme_onglets">
-        <div class="onglets">
-            <span class="onglet_0 onglet" id="onglet_Tab1" onclick="change_onglet('Tab1');">Tab 1</span>
-            <span class="onglet_0 onglet" id="onglet_Tab2" onclick="change_onglet('Tab2');">Tab 2</span>
-            <span class="onglet_0 onglet" id="onglet_Tab3" onclick="change_onglet('Tab3');">Tab 3</span>
-            <span class="onglet_0 onglet" id="onglet_Tab4" onclick="change_onglet('Tab4');">Tab 4</span>
-        </div>
+<!-- Tab links -->
+		<div class="tab">
+		  <button class="tablinks" onclick="ChangeTab(event, 'Tab1');">Tableau 1</button>
+		  <button class="tablinks" onclick="ChangeTab(event, 'Tab2');">Tableau 2</button>
+		  <button class="tablinks" onclick="ChangeTab(event, 'Tab3');">Tableau 3</button>
+		  <button class="tablinks" onclick="ChangeTab(event, 'Tab4');">Tableau 4</button>
+		</div>
 
-        <div class="contenu_onglets">
-            <div class="contenu_onglet" id="contenu_onglet_Tab1">
+        <div id="Tab1" class="tabcontent">
+  			<h3><br>Nombre de supports en cours par projet et par état</h3>
               
               <table>
-              	<caption><br><h2>Nombre de supports en cours par projet et par état</h2></caption>
-              	<thead>
-              <tr><b>
-              <td width="10%><th"><b>Projets</b></th></td>
-              <td width="10%><th"><b>7 jours et moins</b></th></td>
-              <td width="10%><th"><b>de 7 à 14 jours</b></th></td>
-              <td width="10%><th"><b>de 15 à 21 jours</b></th></td>
-              <td width="10%><th"><b>de 22 à 28 jours</b></th></td>
-              <td width="10%><th"><b>de 29 à 90 jours</b></th></td>
-              <td width="10%><th"><b>de 91 à 180 jours</b></th></td>
-              <td width="10%><th"><b>plus de 180 jours</b></th></td>
-              <td width="10%><th"><b>Total</b></th></td>
+              	
+              <thead>
+              <tr>
+              <td width="10%>"><b>Projets</b></th></td>
+              <td width="10%>"><b>7 jours et moins</b></td>
+              <td width="10%>"><b>de 7 à 14 jours</b></td>
+              <td width="10%>"><b>de 15 à 21 jours</b></td>
+              <td width="10%>"><b>de 22 à 28 jours</b></td>
+              <td width="10%>"><b>de 29 à 90 jours</b></td>
+              <td width="10%>"><b>de 91 à 180 jours</b></td>
+              <td width="10%>"><b>plus de 180 jours</b></td>
+              <td width="10%>"><b>Total</b></td>
               </tr>
               </thead>
           <tbody>
@@ -100,27 +109,25 @@
            		</tbody>
            </table>
 
-            </div>
-        </div>
+       </div>
 
 
-
-           <div class="contenu_onglet" id="contenu_onglet_Tab2">
-                <h1></h1>
+        <div id="Tab2" class="tabcontent">
+                <h3>Nombre de supports en cours par personne et par tranche d'ancienneté<br></h3>
 
             <table>
-              	<caption><br><h2>Nombre de supports en cours par personne et par tranche d'ancienneté </h2></caption>
+             
               	<thead>
               <tr>
-              <td width="10%><th"><b>Projets</b></th></td>
-              <td width="10%><th"><b>7 jours et moins</b></th></td>
-              <td width="10%><th"><b>de 7 à 14 jours</b></th></td>
-              <td width="10%><th"><b>de 15 à 21 jours</b></th></td>
-              <td width="10%><th"><b>de 22 à 28 jours</b></th></td>
-              <td width="10%><th"><b>de 29 à 90 jours</b></th></td>
-              <td width="10%><th"><b>de 91 à 180 jours</b></th></td>
-              <td width="10%><th"><b>plus de 180 jours</b></th></td>
-              <td width="10%><th"><b>Total</b></th></td>
+              <td width="10%>"><b>Projets</b></th></td>
+              <td width="10%>"><b>7 jours et moins</b></td>
+              <td width="10%>"><b>de 7 à 14 jours</b></td>
+              <td width="10%>"><b>de 15 à 21 jours</b></td>
+              <td width="10%>"><b>de 22 à 28 jours</b></td>
+              <td width="10%>"><b>de 29 à 90 jours</b></td>
+              <td width="10%>"><b>de 91 à 180 jours</b></td>
+              <td width="10%>"><b>plus de 180 jours</b></td>
+              <td width="10%>"><b>Total</b></td>
 
               </tr>
               </thead>
@@ -179,21 +186,23 @@
                
               ?>
               </tbody>
-	</table>
-          </div>
-            <div class="contenu_onglet" id="contenu_onglet_Tab3">
+			</table>
+        </div>
+
+        <div id="Tab3" class="tabcontent">
+  			<h3>Nombre de supports en cours par projet et par état</h3>
               <table>
-              	<caption><br><h2>Nombre de supports en cours par projet et par état</h2></caption>
+              	
               	<thead>
               	  	<tr><br>
-              		<td width="10%><th"><b>Années de dépôt</b></th></td>
-              		<td width="10%><th"><b>Affecté</b></th></td>
-              		<td width="10%><th"><b>Accepté</b></th></td>
-              		<td width="10%><th"><b>Confirmé</b></th></td>
-              		<td width="10%><th"><b>Précision requises</b></th></td>
-              		<td width="10%><th"><b>Résolu</b></th></td>
-              		<td width="10%><th"><b>Fermé</b></th></td>
-              		<td width="10%><th"><b>Total général</b></th></td>
+              		<td width="10%"><b>Années de dépôt</b></td>
+              		<td width="10%"><b>Affecté</b></td>
+              		<td width="10%"><b>Accepté</b></td>
+              		<td width="10%"><b>Confirmé</b></td>
+              		<td width="10%"><b>Précision requises</b></td>
+              		<td width="10%"><b>Résolu</b></td>
+              		<td width="10%"><b>Fermé</b></td>
+              		<td width="10%"><b>Total général</b></td>
               		</tr>
                 </thead>
 
@@ -215,13 +224,11 @@
                 		$reqSolved=getEtatSupp($bdd, $donnees['DATES'],80);
                 		/*Affiche les supports fermés */
                 		$reqClosed=getEtatSupp($bdd, $donnees['DATES'],90);
-
+                		/* Total */ 
                 		$reqTotalG = getTotalG($bdd, $donnees['DATES']);
-                		//$reqEachTotal = getEachTotal($bdd, $donnees['DATES']);
 
 
- 				
-          
+
                 		
                 		echo "<tr>";
 			    		
@@ -244,19 +251,18 @@
 
 
 						echo "</tr>";	
-							
-			    		
                 	}
-
 
 
                 	  ?>
                 </tbody>
                 </table>
-            </div>
-            	<div class="contenu_onglet" id="contenu_onglet_Tab4">
+           </div>
+
+        <div id="Tab4" class="tabcontent">
+  			<h3>Nombre de supports déposés par mois et par projet sur les 12 derniers mois</h3>
               <table>
-              	<caption><br><h2>Nombre de supports déposés par mois et par projet sur les 12 derniers mois</h2></caption>
+              	
               	<thead>
               		<?php
               	  	echo"<tr>";
@@ -266,7 +272,7 @@
               		{	
               			echo "<th>";
 
-			    		echo "<td width = 10% border-spacing= 5px>".$donnees['MOIS']."</td>";
+			    		echo "<td><b>".$donnees['MOIS']."</b></td>";
 			    		echo "</th>";
 			    	}
 
@@ -275,6 +281,7 @@
                 </thead>
                 <tbody>
                 	<?php
+
                 	while  ($donnees = $reqProjectList1->fetch())
                 	{
                 		$reqJanuary = getMonthSupp($bdd, $donnees['id'], 1, 2019);
@@ -292,9 +299,10 @@
 
 
 
-                		echo "<tr width = 10% border-spacing= 5px>";
+                		echo "<tr>";
 
 			    		echo "<td>".$donnees['name']."</td>";
+
 			    		$buffData = $reqJanuary;
 						echo "<td>".$buffData['SuppMonths'] ."</td>";
 
@@ -337,20 +345,13 @@
 
 
 
-
-
                 	?>
                 	
 
 
-
-
-
-
                 </tbody>
-
+			</table>
         </div>
-    </div>
 
 </body>
 </html>

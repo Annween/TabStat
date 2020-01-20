@@ -9,7 +9,7 @@ catch(Exception $e)
     die('Erreur : '.$e->getMessage());
 }
 
-$reqProjectList = $bdd->query('SELECT id, name FROM mantis_project_table');
+$reqProjectList = $bdd->query("SELECT DISTINCT p.id, p.name FROM `mantis_project_table` as p INNER JOIN `mantis_bug_table` as b ON p.id = `b`.`project_id` WHERE `b`.`status` not in (80, 90) AND FROM_UNIXTIME(`b`.`date_submitted`,'%Y') BETWEEN '2018' AND '2020'");
 $reqProjectList1 = $bdd->query('SELECT id, name FROM mantis_project_table');
 $reqPeople = $bdd->query('SELECT DISTINCT `mantis_user_table`.`realname` AS username, `mantis_bug_table`.`handler_id` as handler_id FROM `mantis_bug_table`, `mantis_user_table` WHERE `mantis_user_table`.`id` =  `mantis_bug_table`.`handler_id` AND `status` not in (80, 90)');
 
@@ -17,21 +17,16 @@ $reqPeople = $bdd->query('SELECT DISTINCT `mantis_user_table`.`realname` AS user
 /* Fonctions pour TAB1 */ 
  function getSupportsEnCours($database, $id,$type, $min, $max)
 {	
-	/*if ($id && $min && $max === 0)
-	{
-		return $database ->query('DELETE `project_id`, `date_submitted`  FROM `mantis_bug_table` WHERE '.$id.' AND '.$min.' AND '.$max.' IS NULL')->fetch();
-	} */ 
+ 
 	
 		if($type === 'projet') 
 		{
-			return $database->query('SELECT COUNT(*) AS NB FROM `mantis_bug_table` WHERE `project_id`='.$id.' AND DATEDIFF(NOW(),FROM_UNIXTIME(date_submitted)) > '.$min.' AND DATEDIFF(NOW(),FROM_UNIXTIME(date_submitted)) <= '.$max.' AND `status` not in (80, 90) ')->fetch();
+			return $database->query('SELECT COUNT(*) AS NB FROM `mantis_bug_table` WHERE `project_id`='.$id.' AND DATEDIFF(NOW(),FROM_UNIXTIME(date_submitted)) > '.$min.' AND DATEDIFF(NOW(),FROM_UNIXTIME(date_submitted)) <= '.$max.' AND `status` not in (80, 90)')->fetch();
 		} 
 			elseif($type === 'user')  
 			{
 				return $database->query('SELECT COUNT(*) AS NB FROM `mantis_bug_table`WHERE `handler_id`='.$id.' AND DATEDIFF(	NOW(),FROM_UNIXTIME(date_submitted)) > '.$min.' AND DATEDIFF(NOW(),FROM_UNIXTIME(date_submitted)) <= '.$max.' AND `status` 	not in (80, 90)')->fetch();
 			}
-
-		
 }
 
 

@@ -1,12 +1,21 @@
 
-function change_onglet(name)
-{
-    document.getElementById('onglet_'+anc_onglet).className = 'onglet_0 onglet';
-    document.getElementById('onglet_'+name).className = 'onglet_1 onglet';
-    document.getElementById('contenu_onglet_'+anc_onglet).style.display = 'none';
-    document.getElementById('contenu_onglet_'+name).style.display = 'block';
-    anc_onglet = name;
-}
-var anc_onglet = 'Tab1'; // fonction qui permet de changer d'onglet
-change_onglet(anc_onglet);
+function ChangeTab(evt, id) {
+  // Declare all variables
+  var i, tabcontent, tablinks;
 
+  // Get all elements with class="tabcontent" and hide them
+  tabcontent = document.getElementsByClassName("tabcontent");
+  for (i = 0; i < tabcontent.length; i++) {
+    tabcontent[i].style.display = "none";
+  }
+
+  // Get all elements with class="tablinks" and remove the class "active"
+  tablinks = document.getElementsByClassName("tablinks");
+  for (i = 0; i < tablinks.length; i++) {
+    tablinks[i].className = tablinks[i].className.replace(" active", "");
+  }
+
+  // Show the current tab, and add an "active" class to the button that opened the tab
+  document.getElementById(id).style.display = "block";
+  evt.currentTarget.className += " active";
+}
