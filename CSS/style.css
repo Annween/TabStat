@@ -1,20 +1,71 @@
-h3
-{
-  margin: 5% auto;
-}
+/* 
+
+
+DOCUMENT CSS 
+
+TABSTAT
+
+SOMMAIRE:
+
+1.LOADER 
+2.ONGLETS
+3.TABLEAUX
+4.MEDIA QUERIES
+
+
+
+*/
+
+
+
+
 
 /* ---------------------------------------------------
-                      1. ONGLETS
+                      1. LOADER
 ----------------------------------------------------- */
-.tab {
+
+.loader
+{
+  background: url('b8.gif') 50% 50% no-repeat rgba(255, 255, 255, 255);
+  cursor: wait;
+  height: 100%;
+  left: 0;
+  position: fixed;
+  top: 0;
+  width: 100%;
+  z-index: 9999;
+  opacity: 1;
+}
+.loader h1
+{
+  background: none;
+  border: none;
+  color: #458976;
+  font-size: 22px;
+  font-family: "Open Sans",sans-serif;
+  font-variant: small-caps;
+  font-weight: 700;
+  height: 700px;
+  line-height: 700px;
+  margin: 0 0 10px;
+  padding: 0;
+  text-align: center;
+} 
+/* ---------------------------------------------------
+                      2. ONGLETS
+----------------------------------------------------- */
+
+.tab 
+{
   overflow: hidden;
   border: 1px solid #ccc;
   background-color: #f1f1f1;
-   align-items: center;
+  align-items: center;
 }
 
-/* Style the buttons that are used to open the tab content */
-.tab button {
+/* Élements de style sur les boutons de l'onglet*/
+.tab button 
+{
   background-color: inherit;
   float: left;
   border: none;
@@ -25,18 +76,16 @@ h3
 
 }
 
-/* Change background color of buttons on hover */
-.tab button:hover {
-  background-color: #ddd;
-}
 
-/* Create an active/current tablink class */
-.tab button.active {
+/* active désigne le bouton actif, celui sur lequel on clique */ 
+.tab button.active
+{
   background-color: #ccc;
 }
 
-/* Style the tab content */
-.tabcontent {
+/* Style sur le contenu des onglets*/
+.tabcontent 
+{
   display: none;
   padding: 6px 12px;
   border: 1px solid #ccc;
@@ -45,26 +94,44 @@ h3
 
 
 
-.tabcontent {
-  animation: fadeEffect 1s; /* Fading effect takes 1 second */
+.tabcontent 
+{
+  animation: fadeEffect 1s; /* durée de l'effet de transition entre les tableaux  */
 }
 
-/* Go from zero to full opacity */
-@keyframes fadeEffect {
+/* De 0 à une opacité totale */
+@keyframes fadeEffect {  /* effet de transition (apparition/disparition) sur l'affichage des tableaux */ 
   from {opacity: 0;}
   to {opacity: 1;}
 }
 
+/* ---------------------------------------------------
+                      2. TITRES
+----------------------------------------------------- */
 
+h3
+{
+  text-align: center;
+}
+
+.box-sizing: border-box;
+{ 
+
+  width: 100%; 
+  background-color: #DCDCDC;
+
+
+}
 
 /* ---------------------------------------------------
-                      2. TABLEAUX
+                      3. TABLEAUX
 ----------------------------------------------------- */
+
 
 table
 {
   width: 100%;
-  border-collapse:collapse;
+  border-collapse:collapse; /* fait fusionner les bords des cellules */ 
   display:table;
   overflow-x:auto;
   margin: auto;
@@ -94,11 +161,14 @@ thead
    background-color: #f5f5f5;
 }
 
+tr:nth-child(even) {background-color: #f2f2f2;} /* permet d'obtenir l'ossillement de couleur entre le blanc et le gris */ 
 
 
-tr:hover {background-color: #f5f5f5;}
+/* ---------------------------------------------------
+                      4. MEDIA QUERIES
+----------------------------------------------------- */
 
-tr:nth-child(even) {background-color: #f2f2f2;}
+
 
 
 /* Extra small devices (phones, less than 768px) */

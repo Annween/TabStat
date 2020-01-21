@@ -1,20 +1,51 @@
 <?php
+/* ---------------------------------------------------
+                      CONNEXION BDD
+----------------------------------------------------- */
 try
 {
     $bdd = new PDO('mysql:host=localhost;dbname=tabstat;charset=utf8', 'root', '');
-    echo "Connexion réussie";
+    echo "Vous êtes connecté";
 }
 catch(Exception $e)
 {
     die('Erreur : '.$e->getMessage());
 }
 
+/* ---------------------------------------------------
+               		 LISTE DES PROJETS (TAB 1&4)
+----------------------------------------------------- */
+
 $reqProjectList = $bdd->query("SELECT DISTINCT p.id, p.name FROM `mantis_project_table` as p INNER JOIN `mantis_bug_table` as b ON p.id = `b`.`project_id` WHERE `b`.`status` not in (80, 90) AND FROM_UNIXTIME(`b`.`date_submitted`,'%Y') BETWEEN '2018' AND '2020'");
 $reqProjectList1 = $bdd->query('SELECT id, name FROM mantis_project_table');
+
+/* ---------------------------------------------------
+                    LISTE DES PERSONNES(TAB2)
+----------------------------------------------------- */
 $reqPeople = $bdd->query('SELECT DISTINCT `mantis_user_table`.`realname` AS username, `mantis_bug_table`.`handler_id` as handler_id FROM `mantis_bug_table`, `mantis_user_table` WHERE `mantis_user_table`.`id` =  `mantis_bug_table`.`handler_id` AND `status` not in (80, 90)');
 
 
-/* Fonctions pour TAB1 */ 
+/* ---------------------------------------------------
+                    LISTE DES DATES (TAB3)
+----------------------------------------------------- */
+
+
+$reqDate = $bdd -> query("SELECT DISTINCT FROM_UNIXTIME(`date_submitted`,'%Y') AS DATES FROM `mantis_bug_table` WHERE  FROM_UNIXTIME(`date_submitted`,'%Y') BETWEEN '2018' AND '2020'
+	UNION SELECT '2018,2019,2020' "); 
+
+
+
+/* ---------------------------------------------------
+                      LISTE DES MOIS (TAB 4)
+----------------------------------------------------- */
+
+$reqMonths = $bdd->query('SELECT DISTINCT MONTH(FROM_UNIXTIME(`date_submitted`)) AS MOIS FROM mantis_bug_table ORDER BY MONTH(FROM_UNIXTIME(`date_submitted`))');
+
+/* ---------------------------------------------------
+                      FONCTION TAB 1&2
+----------------------------------------------------- */
+
+
  function getSupportsEnCours($database, $id,$type, $min, $max)
 {	
  
@@ -30,9 +61,9 @@ $reqPeople = $bdd->query('SELECT DISTINCT `mantis_user_table`.`realname` AS user
 }
 
 
-
-$reqDate = $bdd -> query("SELECT DISTINCT FROM_UNIXTIME(`date_submitted`,'%Y') AS DATES FROM `mantis_bug_table` WHERE  FROM_UNIXTIME(`date_submitted`,'%Y') BETWEEN '2018' AND '2020'
-	UNION SELECT '2018,2019,2020' "); 
+/* ---------------------------------------------------
+                      FONCTION TAB 3
+----------------------------------------------------- */
 
 function getEtatSupp ($database, $annee, $etat)
 {
@@ -49,7 +80,6 @@ function getEtatSupp ($database, $annee, $etat)
 }
 
 
-
 function GetTotalG($database, $annee)
 {
 	return $database ->query("SELECT DISTINCT COUNT(*)  As TotalG  
@@ -59,9 +89,11 @@ function GetTotalG($database, $annee)
 
 }
 
+/* ---------------------------------------------------
+                      FONCTION TAB 4
+----------------------------------------------------- */
 
 
-$reqMonths = $bdd->query('SELECT DISTINCT MONTH(FROM_UNIXTIME(`date_submitted`)) AS MOIS FROM mantis_bug_table ORDER BY MONTH(FROM_UNIXTIME(`date_submitted`))');
 
 function getMonthSupp($database, $id, $month, $year)
 {	

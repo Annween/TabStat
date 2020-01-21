@@ -1,24 +1,31 @@
 <!DOCTYPE html>
 <html lang="fr">
-
-<head>
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 	<link type="text/css" rel="stylesheet" media="all" title="CSS" href="/CSS/style.css" />
-  <script type="text/javascript" src="/js/onglet.js"></script>
-  <script type="text/javascript" src="/js/fixed_header.js"></script>
+	<script type="text/javascript" src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+	<script type="text/javascript" src="/js/loading_query.js"></script>
+  	<script type="text/javascript" src="/js/onglet.js"></script>
+
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
-  <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
   
+<head>
+
 
 	<title>TabStats</title>
 </head>
+  
 <body>
-	<div class="loader"></div>
-	  
+<script>
+jQuery(window).load(function(){ jQuery('.loader').fadeOut("200"); });
+</script>
+
+<div class="loader">
+<h3>Loading, please wait</h3>
+</div>
 
 
 <!-- Tab links -->
@@ -30,8 +37,9 @@
 		</div>
 
         <div id="Tab1" class="tabcontent">
-  			<h3><br>Nombre de supports en cours par projet et par état</h3>
-              
+        	<div id="boxTab1" class="box-sizing">
+  			<h3><br>Nombre de supports en cours par projet et par état<br><br></h3>
+              </div>
               <table>
               	
               <thead>
@@ -113,8 +121,9 @@
 
 
         <div id="Tab2" class="tabcontent">
-                <h3>Nombre de supports en cours par personne et par tranche d'ancienneté<br></h3>
-
+        	<div id="boxTab2" class="box-sizing">
+                <h3><br>Nombre de supports en cours par personne et par tranche d'ancienneté<br><br></h3>
+</div>
             <table>
              
               	<thead>
@@ -150,7 +159,7 @@
 			  /* Recuperation du nombre d'occurence du projet en cours qui ont plus de 180 jours */
 			  $reqPlus180 = getSupportsEnCours($bdd, $donnees['handler_id'],'user',180,999);
 			  /* Recuperation du total */
-			   $reqTotal = getSupportsEnCours($bdd, $donnees['handler_id'],'user',0,999);
+			  $reqTotal = getSupportsEnCours($bdd, $donnees['handler_id'],'user',0,999);
 
 			   echo "<tr>";
 			    /* Inscription du nom du projet */
@@ -188,9 +197,11 @@
               </tbody>
 			</table>
         </div>
-
         <div id="Tab3" class="tabcontent">
-  			<h3>Nombre de supports en cours par projet et par état</h3>
+
+<div id="boxTab3" class="box-sizing">
+  			<h3><br>Nombre de supports en cours par projet et par état<br><br></h3>
+  		</div>
               <table>
               	
               	<thead>
@@ -260,7 +271,9 @@
            </div>
 
         <div id="Tab4" class="tabcontent">
-  			<h3>Nombre de supports déposés par mois et par projet sur les 12 derniers mois</h3>
+        	<div id="boxTab4" class="box-sizing">
+  			<h3><br>Nombre de supports déposés par mois et par projet sur les 12 derniers mois<br><br></h3>
+  			</div>
               <table>
               	
               	<thead>
@@ -352,6 +365,11 @@
                 </tbody>
 			</table>
         </div>
-
+<script>
+   $( document ).ready(function(){
+      $('.loader').hide();/*je cache le loader après le chargement de la page*/
+   });
+</script>
 </body>
+
 </html>
