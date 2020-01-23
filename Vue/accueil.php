@@ -1,3 +1,6 @@
+
+
+
 <!DOCTYPE html>
 <html lang="fr">
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
@@ -5,36 +8,38 @@
 	<script type="text/javascript" src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
 	<script type="text/javascript" src="/js/loading_query.js"></script>
   	<script type="text/javascript" src="/js/onglet.js"></script>
+  	<script type="text/javascript" src="/js/fixed_header.js"></script>
+  	<meta name="viewport" content="width=device-width, initial-scale=1">
+  	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+  	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="	sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+  	<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="  	sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+  	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="  	sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
 
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
-  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
-<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
   
 <head>
-
-
+	
 	<title>TabStats</title>
-</head>
-  
-<body>
-<script>
-jQuery(window).load(function(){ jQuery('.loader').fadeOut("200"); });
-</script>
 
-<div class="loader">
-<h3>Loading, please wait</h3>
-</div>
-
-
-<!-- Tab links -->
+	<!-- Tab links -->
 		<div class="tab">
 		  <button class="tablinks" onclick="ChangeTab(event, 'Tab1');">Tableau 1</button>
 		  <button class="tablinks" onclick="ChangeTab(event, 'Tab2');">Tableau 2</button>
 		  <button class="tablinks" onclick="ChangeTab(event, 'Tab3');">Tableau 3</button>
 		  <button class="tablinks" onclick="ChangeTab(event, 'Tab4');">Tableau 4</button>
 		</div>
+
+</head>
+  
+<body>
+
+<script>jQuery(window).load(function(){ jQuery('.loader').fadeOut("200"); });</script>
+
+<div class="loader">
+<h3>Loading, please wait</h3>
+</div>
+
+
+
 
         <div id="Tab1" class="tabcontent">
         	<div id="boxTab1" class="box-sizing">
@@ -200,7 +205,7 @@ jQuery(window).load(function(){ jQuery('.loader').fadeOut("200"); });
         <div id="Tab3" class="tabcontent">
 
 <div id="boxTab3" class="box-sizing">
-  			<h3><br>Nombre de supports en cours par projet et par état<br><br></h3>
+  			<h3><br>Nombre de supports en cours par état et par année <br><br></h3>
   		</div>
               <table>
               	
@@ -236,7 +241,7 @@ jQuery(window).load(function(){ jQuery('.loader').fadeOut("200"); });
                 		/*Affiche les supports fermés */
                 		$reqClosed=getEtatSupp($bdd, $donnees['DATES'],90);
                 		/* Total */ 
-                		$reqTotalG = getTotalG($bdd, $donnees['DATES']);
+                		$reqTotalG = getTotalG($bdd, $donnees['DATES'],);
 
 
 
@@ -270,7 +275,7 @@ jQuery(window).load(function(){ jQuery('.loader').fadeOut("200"); });
                 </table>
            </div>
 
-        <div id="Tab4" class="tabcontent">
+        <div id="Tab4" class="tabcontent"> 
         	<div id="boxTab4" class="box-sizing">
   			<h3><br>Nombre de supports déposés par mois et par projet sur les 12 derniers mois<br><br></h3>
   			</div>
@@ -278,6 +283,7 @@ jQuery(window).load(function(){ jQuery('.loader').fadeOut("200"); });
               	
               	<thead>
               		<?php
+
               	  	echo"<tr>";
               	  	echo "<td><b>Projets</b></td>";
               		
@@ -360,8 +366,6 @@ jQuery(window).load(function(){ jQuery('.loader').fadeOut("200"); });
 
                 	?>
                 	
-
-
                 </tbody>
 			</table>
         </div>
@@ -373,3 +377,4 @@ jQuery(window).load(function(){ jQuery('.loader').fadeOut("200"); });
 </body>
 
 </html>
+
