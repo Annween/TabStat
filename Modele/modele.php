@@ -1,5 +1,9 @@
 <?php
 
+// J'AI FAIT LE MENAGE 
+
+
+
 
 /* ---------------------------------------------------
                       CONNEXION BDD
@@ -20,17 +24,20 @@ catch(Exception $e)
 
 $reqProjectList = $bdd->query("SELECT DISTINCT p.id, p.name FROM `mantis_project_table` as p INNER JOIN `mantis_bug_table` as b ON p.id = `b`.`project_id` WHERE `b`.`status` not in (80, 90) AND FROM_UNIXTIME(`b`.`date_submitted`,'%Y')");
 
-$reqProjectList1 = $bdd->query("SELECT DISTINCT p.id, p.name FROM `mantis_project_table` as p INNER JOIN `mantis_bug_table` as b ON p.id = `b`.`project_id` WHERE FROM_UNIXTIME(`b`.`date_submitted`,'%Y') BETWEEN '2019' AND '2020'");
+$reqProjectList1 = $bdd->query("SELECT DISTINCT p.id, p.name FROM `mantis_project_table` as p INNER JOIN `mantis_bug_table` as b ON p.id = `b`.`project_id` WHERE FROM_UNIXTIME(`b`.`date_submitted`,'%Y')");
 
 /* ---------------------------------------------------
                     LISTE DES PERSONNES(TAB2)
 ----------------------------------------------------- */
+
+
 $reqPeople = $bdd->query('SELECT DISTINCT `mantis_user_table`.`realname` AS username, `mantis_bug_table`.`handler_id` as handler_id FROM `mantis_bug_table`, `mantis_user_table` WHERE `mantis_user_table`.`id` =  `mantis_bug_table`.`handler_id` AND `status` not in (80, 90)');
 
 
 /* ---------------------------------------------------
                     LISTE DES DATES (TAB3)
 ----------------------------------------------------- */
+
 
 $reqDate = $bdd -> query("SELECT DISTINCT FROM_UNIXTIME(`date_submitted`,'%Y') AS DATES FROM `mantis_bug_table` WHERE  FROM_UNIXTIME(`date_submitted`,'%Y') BETWEEN '2018' AND '2020'
 	UNION SELECT '2018,2019,2020' as TOTAL "); 
@@ -41,7 +48,11 @@ $reqDate = $bdd -> query("SELECT DISTINCT FROM_UNIXTIME(`date_submitted`,'%Y') A
                       LISTE DES MOIS (TAB 4)
 ----------------------------------------------------- */
 
+
+
 $reqMonths = $bdd->query('SELECT DISTINCT MONTH(FROM_UNIXTIME(`date_submitted`)) AS MOIS FROM mantis_bug_table ORDER BY MONTH(FROM_UNIXTIME(`date_submitted`))');
+
+
 
 /* ---------------------------------------------------
                       FONCTION TAB 1&2
@@ -91,14 +102,14 @@ function GetTotalG($database, $annee)
                       FONCTION TAB 4
 ----------------------------------------------------- */
 
-
+/* LA FONCTION PROBLEMATIQUE */ 
 
 function getMonthSupp($database, $id, $month, $year)
 {	
-	return $database ->query("SELECT COUNT(*) AS SuppMonths FROM `mantis_bug_table` WHERE `project_id`=".$id."  AND MONTH(FROM_UNIXTIME(`date_submitted`)) = ".$month." AND YEAR(FROM_UNIXTIME(`date_submitted`)) = ".$year." ")->fetch();
+	return $database ->query("SELECT DISTINCT COUNT(*) AS SuppMonths FROM `mantis_bug_table` WHERE `project_id`=".$id."  AND MONTH(FROM_UNIXTIME(`date_submitted`)) = ".$month." AND YEAR(FROM_UNIXTIME(`date_submitted`)) = ".$year." ")->fetch();
 }
 
-
-
+/* on veut le nombre de supports déposés par mois et par projet sur les 12 derniers mois */ 
+ 
 
 ?>
