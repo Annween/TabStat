@@ -49,6 +49,8 @@ SOMMAIRE:
   padding: 0;
   text-align: center;
 } 
+
+
 /* ---------------------------------------------------
                       2. ONGLETS
 ----------------------------------------------------- */
@@ -75,7 +77,7 @@ SOMMAIRE:
 }
 
 
-/* active désigne le bouton actif, celui sur lequel on clique */ 
+/*  désigne le bouton actif, celui sur lequel on clique */ 
 .tab button.active
 {
   background-color: #ccc;
@@ -117,7 +119,19 @@ h3
 
   width: 100%; 
   background-color: #DCDCDC;
+}
 
+#date1
+{
+  float: left;
+  margin-left: 100px;
+
+}
+
+#date2
+{
+  float: right;
+  margin-right: 40px
 
 }
 
@@ -134,18 +148,17 @@ table
   overflow-x:auto;
   margin: auto;
   position: relative;
+  table-layout: fixed;
   
 }
 
- td 
+td 
 {
   border-spacing: 5px;
   height: 50px;
   vertical-align: bottom;
   text-align: center;
   padding: 15px;
-  border-bottom: 1px solid #ddd;
-
 }
 
 
@@ -156,8 +169,20 @@ thead
   text-align: left;
   padding: 15px;
   border-bottom: 1px solid #ddd;
+
 }
 
+
+
+/* check for position:sticky support */
+detect {
+  display: none;
+}
+@supports (position: sticky) or (position: -webkit-sticky) {
+  detect {
+    display: block;
+  }
+}
 
 
 tr:nth-child(even) {background-color: #f2f2f2;} /* permet d'obtenir l'ossillement de couleur entre le blanc et le gris */ 

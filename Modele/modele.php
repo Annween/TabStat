@@ -1,6 +1,5 @@
 <?php
 
-// J'AI FAIT LE MENAGE 
 
 
 
@@ -22,7 +21,7 @@ catch(Exception $e)
                		 LISTE DES PROJETS (TAB 1&4)
 ----------------------------------------------------- */
 
-$reqProjectList = $bdd->query("SELECT DISTINCT p.id, p.name FROM `mantis_project_table` as p INNER JOIN `mantis_bug_table` as b ON p.id = `b`.`project_id` WHERE `b`.`status` not in (80, 90) AND FROM_UNIXTIME(`b`.`date_submitted`,'%Y')");
+$reqProjectList = $bdd->query("SELECT DISTINCT p.id, p.name FROM `mantis_project_table` as p INNER JOIN `mantis_bug_table` as b ON p.id = `b`.`project_id` WHERE `b`.`status` not in (80, 90) AND FROM_UNIXTIME(`b`.`date_submitted`,'%Y') ");
 
 $reqProjectList1 = $bdd->query("SELECT DISTINCT p.id, p.name FROM `mantis_project_table` as p INNER JOIN `mantis_bug_table` as b ON p.id = `b`.`project_id` WHERE FROM_UNIXTIME(`b`.`date_submitted`,'%Y')");
 
@@ -102,14 +101,12 @@ function GetTotalG($database, $annee)
                       FONCTION TAB 4
 ----------------------------------------------------- */
 
-/* LA FONCTION PROBLEMATIQUE */ 
+
 
 function getMonthSupp($database, $id, $month, $year)
 {	
 	return $database ->query("SELECT DISTINCT COUNT(*) AS SuppMonths FROM `mantis_bug_table` WHERE `project_id`=".$id."  AND MONTH(FROM_UNIXTIME(`date_submitted`)) = ".$month." AND YEAR(FROM_UNIXTIME(`date_submitted`)) = ".$year." ")->fetch();
 }
 
-/* on veut le nombre de supports déposés par mois et par projet sur les 12 derniers mois */ 
- 
 
 ?>

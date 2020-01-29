@@ -32,12 +32,12 @@
   
 <body>
 
-<script>
-jQuery(window).load(function(){ jQuery('.loader').fadeOut("200"); });</script> 
+<!--<script>
+jQuery(window).load(function(){ jQuery('.loader').fadeOut("200"); });</script> -->
 
-<div class="loader">
+<!--<div class="loader">
 <h3>Loading, please wait</h3>
-</div>
+</div> -->
 
         <div id="Tab1" class="tabcontent">
         	<div id="boxTab1" class="box-sizing">
@@ -81,6 +81,7 @@ jQuery(window).load(function(){ jQuery('.loader').fadeOut("200"); });</script>
 			  $reqPlus180 = getSupportsEnCours($bdd, $donnees['id'], 'projet',180,999);
 			  /* Recuperation du total */
 			  $reqTotal = getSupportsEnCours($bdd, $donnees['id'], 'projet',0,999);
+
 
 
 
@@ -279,16 +280,43 @@ jQuery(window).load(function(){ jQuery('.loader').fadeOut("200"); });</script>
   			</div>
               <table>
               	
-              	<thead>
+             <thead>
               		<?php
 
               	  	echo"<tr>";
               	  	echo "<td><b>Projets</b></td>";
+              	  	echo "<span id='date1'><b>2019</b></span>";
+              	  	echo "<span id='date2'><b>2020</b></span>";
               		
-              		while ($donnees = $reqMonths ->fetch())
-              		{
-			    		echo "<td><b>".$donnees['MOIS']."</b></td>";		
-			    	}
+					/* On obtient la date du jour */
+					$currentEpoch = time();
+					/* On retire 1 an */
+					$lastYearEpoch = $currentEpoch - 31536000;
+
+					
+					/* Get month to start with */
+					$monthDisplay = date("m"); 
+					$year = date("y");
+					/* Displaying 13 month so year is always - 1 */
+					$year = $year - 1;
+					
+					$monthIterator = 0;
+					/* Dirty hack to get data as number */
+					$monthSeek = $monthDisplay + 1 - 1;
+					$monthDisplay = $monthSeek;
+					
+					for ($monthIterator = 0; $monthIterator < 13; $monthIterator++)
+					{
+					    if ($monthDisplay > 12)
+						    $monthDisplay = 1;
+						/* Dirty display fix */
+						if ($monthDisplay < 10)
+							echo "<td><b>0".$monthDisplay."</b></td>";
+						else
+							echo "<td><b>".$monthDisplay."</b></td>";
+						$monthDisplay++;
+					}
+					
 
               		echo "</tr>";
               		?>
@@ -298,65 +326,25 @@ jQuery(window).load(function(){ jQuery('.loader').fadeOut("200"); });</script>
 
                 	while  ($donnees = $reqProjectList1->fetch())
                 	{
-                		$reqJanuary = getMonthSupp($bdd, $donnees['id'], 1, 2019); 
-                		$reqFebuary = getMonthSupp($bdd, $donnees['id'], 2, 2019);
-                		$reqMarch = getMonthSupp($bdd, $donnees['id'], 3, 2019);
-                		$reqApril = getMonthSupp($bdd, $donnees['id'], 4, 2019);
-                		$reqMay = getMonthSupp($bdd, $donnees['id'], 5, 2019); 
-                		$reqJune = getMonthSupp($bdd, $donnees['id'], 6, 2019);
-                		$reqJuly = getMonthSupp($bdd, $donnees['id'], 7, 2019);	 
-                		$reqAugust = getMonthSupp($bdd, $donnees['id'], 8, 2019);
-                		$reqSeptember = getMonthSupp($bdd, $donnees['id'], 9, 2019);
-                		$reqOctober = getMonthSupp($bdd, $donnees['id'], 10, 2019);
-                		$reqNovember = getMonthSupp($bdd, $donnees['id'], 11, 2019); 
-                		$reqDecember = getMonthSupp($bdd, $donnees['id'], 12, 2019);
-                		$reqJan2020 = getMonthSupp($bdd, $donnees['id'], 1, 2020); 
+					    echo "<tr>";
 
-
-
-                		echo "<tr>";
-
-			    		echo "<td width = 10%>".$donnees['name']."</td>";
-
-			    		$buffData = $reqJanuary;
-						echo "<td>".$buffData['SuppMonths'] ."</td>";
-
-						$buffData = $reqFebuary;
-						echo "<td>".$buffData['SuppMonths'] ."</td>";
-
-						$buffData = $reqMarch;
-						echo "<td>".$buffData['SuppMonths'] ."</td>";
-
-						$buffData = $reqApril;
-						echo "<td>".$buffData['SuppMonths'] ."</td>";
-
-						$buffData = $reqMay;
-						echo "<td>".$buffData['SuppMonths'] ."</td>";
-
-						$buffData = $reqJune;
-						echo "<td>".$buffData['SuppMonths'] ."</td>";
-
-						$buffData = $reqJuly;
-						echo "<td>".$buffData['SuppMonths'] ."</td>";
-
-						$buffData = $reqAugust;
-						echo "<td>".$buffData['SuppMonths'] ."</td>";
-
-						$buffData = $reqSeptember;
-						echo "<td>".$buffData['SuppMonths'] ."</td>";
-
-						$buffData = $reqOctober;
-						echo "<td>".$buffData['SuppMonths'] ."</td>";
-
-						$buffData = $reqNovember;
-						echo "<td>".$buffData['SuppMonths'] ."</td>";
-
-						$buffData = $reqDecember;
-						echo "<td>".$buffData['SuppMonths'] ."</td>";
-
-						$buffData = $reqJan2020;
-						echo "<td>".$buffData['SuppMonths'] ."</td>";
+			    		echo "<td>".$donnees['name']."</td>";
+						
+						$monthIterator = 0;
 					
+						for ($monthIterator = 0; $monthIterator < 13; $monthIterator++)
+						{
+							$reqMonth = getMonthSupp($bdd, $donnees['id'], $monthSeek, ("20".$year)); 
+							$buffData = $reqMonth;
+						    echo "<td>".$buffData['SuppMonths'] ."</td>";
+							
+							$monthSeek++;
+							if ($monthSeek > 12)
+							{
+							  $monthSeek = 1;
+							  $year++;
+							}
+						}
 			    		echo "</tr>";
 					} 
 
@@ -367,11 +355,11 @@ jQuery(window).load(function(){ jQuery('.loader').fadeOut("200"); });</script>
                 </tbody>
 			</table>
         </div>
-<script> 
+<!--<script> 
    $( document ).ready(function(){
       $('.loader').hide();/* le loader après le chargement de la page*/
    });
-</script>
+</script> -->
 </body>
 
 </html>
