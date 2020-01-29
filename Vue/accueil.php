@@ -9,6 +9,7 @@
 	<script type="text/javascript" src="/js/loading_query.js"></script>
   	<script type="text/javascript" src="/js/onglet.js"></script>
   	<script type="text/javascript" src="/js/fixed_header.js"></script>
+  	<link data-require="bootstrap-css" data-semver="3.0.0" href="https://getbootstrap.com/docs/3.4/examples/navbar-fixed-top/" rel="stylesheet"/>
   	<meta name="viewport" content="width=device-width, initial-scale=1">
   	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
   	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="	sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
@@ -279,8 +280,8 @@ jQuery(window).load(function(){ jQuery('.loader').fadeOut("200"); });</script> -
   			<h3><br>Nombre de supports déposés par mois et par projet sur les 12 derniers mois<br><br></h3>
   			</div>
               <table>
-              	
-             <thead>
+             <thead>              	
+
               		<?php
 
               	  	echo"<tr>";
@@ -294,7 +295,7 @@ jQuery(window).load(function(){ jQuery('.loader').fadeOut("200"); });</script> -
 					$lastYearEpoch = $currentEpoch - 31536000;
 
 					
-					/* Get month to start with */
+					/* Récupération du mois avec lequel on commence  */
 					$monthDisplay = date("m"); 
 					$year = date("y");
 					/* Displaying 13 month so year is always - 1 */
@@ -347,8 +348,6 @@ jQuery(window).load(function(){ jQuery('.loader').fadeOut("200"); });</script> -
 						}
 			    		echo "</tr>";
 					} 
-
-
 
                 	?>
                 	

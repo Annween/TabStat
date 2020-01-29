@@ -1,4 +1,6 @@
-(function() {
+
+
+/*(function() {
   // detect CSS position:sticky support by checking elements display as it is set to block in css supports rule
 
   var newEl = document.createElement('detect');
@@ -17,3 +19,5 @@
     // endif
   }
 })();
+*/ 
+
