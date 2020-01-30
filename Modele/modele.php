@@ -1,6 +1,11 @@
 <?php
+ /* récupération des années */ 
+$annee_min = date("Y");
+
+$annee_min = $annee_min - 2;/* 2018*/ 
 
 
+$annee_max = date("Y"); /*2020*/
 
 
 
@@ -21,9 +26,11 @@ catch(Exception $e)
                		 LISTE DES PROJETS (TAB 1&4)
 ----------------------------------------------------- */
 
-$reqProjectList = $bdd->query("SELECT DISTINCT p.id, p.name FROM `mantis_project_table` as p INNER JOIN `mantis_bug_table` as b ON p.id = `b`.`project_id` WHERE `b`.`status` not in (80, 90) AND FROM_UNIXTIME(`b`.`date_submitted`,'%Y') ");
 
-$reqProjectList1 = $bdd->query("SELECT DISTINCT p.id, p.name FROM `mantis_project_table` as p INNER JOIN `mantis_bug_table` as b ON p.id = `b`.`project_id` WHERE FROM_UNIXTIME(`b`.`date_submitted`,'%Y')");
+
+$reqProjectList = $bdd->query("SELECT DISTINCT p.id, p.name FROM `mantis_project_table` as p INNER JOIN `mantis_bug_table` as b ON p.id = `b`.`project_id` WHERE `b`.`status` not in (80, 90) AND FROM_UNIXTIME(`date_submitted`,'%Y') BETWEEN ".$annee_min." AND ".$annee_max."  ");
+
+$reqProjectList1 = $bdd->query("SELECT DISTINCT p.id, p.name FROM `mantis_project_table` as p INNER JOIN `mantis_bug_table` as b ON p.id = `b`.`project_id` WHERE `b`.`status` not in (80, 90) AND FROM_UNIXTIME(`b`.`date_submitted`,'%Y') BETWEEN ".$annee_min." AND ".$annee_max."");
 
 /* ---------------------------------------------------
                     LISTE DES PERSONNES(TAB2)
@@ -38,8 +45,7 @@ $reqPeople = $bdd->query('SELECT DISTINCT `mantis_user_table`.`realname` AS user
 ----------------------------------------------------- */
 
 
-$reqDate = $bdd -> query("SELECT DISTINCT FROM_UNIXTIME(`date_submitted`,'%Y') AS DATES FROM `mantis_bug_table` WHERE  FROM_UNIXTIME(`date_submitted`,'%Y') BETWEEN '2018' AND '2020'
-	UNION SELECT '2018,2019,2020' as TOTAL "); 
+$reqDate = $bdd -> query("SELECT DISTINCT FROM_UNIXTIME(`date_submitted`,'%Y') AS DATES FROM `mantis_bug_table` WHERE  FROM_UNIXTIME(`date_submitted`,'%Y') BETWEEN ".$annee_min." AND ".$annee_max." UNION SELECT '2018,2019,2020' as TOTAL "); 
 
 
 
@@ -60,11 +66,10 @@ $reqMonths = $bdd->query('SELECT DISTINCT MONTH(FROM_UNIXTIME(`date_submitted`))
 
  function getSupportsEnCours($database, $id,$type, $min, $max)
 {	
- 
 	
 		if($type === 'projet') 
 		{
-			return $database->query('SELECT COUNT(*) AS NB FROM `mantis_bug_table` WHERE `project_id`='.$id.' AND DATEDIFF(NOW(),FROM_UNIXTIME(date_submitted)) > '.$min.' AND DATEDIFF(NOW(),FROM_UNIXTIME(date_submitted)) <= '.$max.' AND `status` not in (80, 90)')->fetch();
+			return $database->query('SELECT COUNT(*) AS NB FROM `mantis_bug_table` WHERE `project_id`='.$id.' AND DATEDIFF(NOW(),FROM_UNIXTIME(date_submitted)) > '.$min.' AND DATEDIFF(NOW(),FROM_UNIXTIME(date_submitted)) <= '.$max.' AND `status` not in (80, 90) ')->fetch();
 		} 
 			elseif($type === 'user')  
 			{

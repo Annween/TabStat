@@ -9,7 +9,6 @@
 	<script type="text/javascript" src="/js/loading_query.js"></script>
   	<script type="text/javascript" src="/js/onglet.js"></script>
   	<script type="text/javascript" src="/js/fixed_header.js"></script>
-  	<link data-require="bootstrap-css" data-semver="3.0.0" href="https://getbootstrap.com/docs/3.4/examples/navbar-fixed-top/" rel="stylesheet"/>
   	<meta name="viewport" content="width=device-width, initial-scale=1">
   	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
   	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="	sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
@@ -18,8 +17,9 @@
 
   
 <head>
-	
+
 	<title>TabStats</title>
+
 
 	<!-- Tab links -->
 		<div class="tab">
@@ -43,7 +43,8 @@ jQuery(window).load(function(){ jQuery('.loader').fadeOut("200"); });</script> -
         <div id="Tab1" class="tabcontent">
         	<div id="boxTab1" class="box-sizing">
   			<h3><br>Nombre de supports en cours par projet et par état<br><br></h3>
-              </div>
+			</div>
+              
               <table>
               	
               <thead>
@@ -332,7 +333,7 @@ jQuery(window).load(function(){ jQuery('.loader').fadeOut("200"); });</script> -
 			    		echo "<td>".$donnees['name']."</td>";
 						
 						$monthIterator = 0;
-					
+					/* Itération des mois */ 
 						for ($monthIterator = 0; $monthIterator < 13; $monthIterator++)
 						{
 							$reqMonth = getMonthSupp($bdd, $donnees['id'], $monthSeek, ("20".$year)); 
@@ -341,6 +342,7 @@ jQuery(window).load(function(){ jQuery('.loader').fadeOut("200"); });</script> -
 							
 							$monthSeek++;
 							if ($monthSeek > 12)
+
 							{
 							  $monthSeek = 1;
 							  $year++;

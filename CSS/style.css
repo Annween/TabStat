@@ -17,7 +17,6 @@ SOMMAIRE:
 */
 
 
-
 /* ---------------------------------------------------
                       1. LOADER
 ----------------------------------------------------- */
@@ -49,6 +48,7 @@ SOMMAIRE:
   padding: 0;
   text-align: center;
 } 
+
 
 
 /* ---------------------------------------------------
@@ -174,16 +174,6 @@ thead
 }
 
 
-
-/* check for position:sticky support */
-detect {
-  display: none;
-}
-@supports (position: sticky) or (position: -webkit-sticky) {
-  detect {
-    display: block;
-  }
-}
 
 
 tr:nth-child(even) {background-color: #f2f2f2;} /* permet d'obtenir l'ossillement de couleur entre le blanc et le gris */ 
