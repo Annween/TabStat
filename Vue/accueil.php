@@ -88,6 +88,7 @@ jQuery(window).load(function(){ jQuery('.loader').fadeOut("200"); });</script> -
 
 
 
+
 			  echo "<tr>";
 			    /* Inscription du nom du projet */
 			    echo "<td>".$donnees['name']."</td>";
@@ -116,11 +117,15 @@ jQuery(window).load(function(){ jQuery('.loader').fadeOut("200"); });</script> -
 				$buffData = $reqTotal;
 				echo "<td>".$buffData['NB']."</td>";
 
+
 			  echo "</tr>\n";
+
+
 			} 
             
             ?>
            		</tbody>
+           	
            </table>
 
        </div>
@@ -147,6 +152,7 @@ jQuery(window).load(function(){ jQuery('.loader').fadeOut("200"); });</script> -
               </tr>
               </thead>
               <tbody>
+              
               <?php
 
               while ($donnees = $reqPeople->fetch())
@@ -201,6 +207,7 @@ jQuery(window).load(function(){ jQuery('.loader').fadeOut("200"); });</script> -
                
               ?>
               </tbody>
+              <td width="10%>">Total</td>
 			</table>
         </div>
         <div id="Tab3" class="tabcontent">
@@ -224,6 +231,7 @@ jQuery(window).load(function(){ jQuery('.loader').fadeOut("200"); });</script> -
                 </thead>
 
                 <tbody>
+                	
                 	<?php
 
                 	while ($donnees = $reqDate->fetch()) 
@@ -242,7 +250,7 @@ jQuery(window).load(function(){ jQuery('.loader').fadeOut("200"); });</script> -
                 		/*Affiche les supports fermés */
                 		$reqClosed=getEtatSupp($bdd, $donnees['DATES'],90);
                 		/* Total */ 
-                		$reqTotalG = getTotalG($bdd, $donnees['DATES'],);
+                		$reqTotalG = GetTotalG($bdd, $donnees['DATES'],);
 
 
 
@@ -273,6 +281,7 @@ jQuery(window).load(function(){ jQuery('.loader').fadeOut("200"); });</script> -
 
                 	  ?>
                 </tbody>
+                
                 </table>
            </div>
 
@@ -292,15 +301,13 @@ jQuery(window).load(function(){ jQuery('.loader').fadeOut("200"); });</script> -
               		
 					/* On obtient la date du jour */
 					$currentEpoch = time();
-					/* On retire 1 an */
+					
 					$lastYearEpoch = $currentEpoch - 31536000;
 
 					
 					/* Récupération du mois avec lequel on commence  */
 					$monthDisplay = date("m"); 
-					$year = date("y");
-					/* Displaying 13 month so year is always - 1 */
-					$year = $year - 1;
+				
 					
 					$monthIterator = 0;
 					/* Dirty hack to get data as number */
@@ -329,10 +336,12 @@ jQuery(window).load(function(){ jQuery('.loader').fadeOut("200"); });</script> -
                 	while  ($donnees = $reqProjectList1->fetch())
                 	{
 					    echo "<tr>";
-
-			    		echo "<td>".$donnees['name']."</td>";
-						
+					
+			    		echo '<td>'.$donnees['name']."</th>";
 						$monthIterator = 0;
+						$year = date("y");
+						/* Displaying 13 month so year is always - 1 */
+						$year = $year - 1;
 						/* Itération des mois */ 
 						for ($monthIterator = 0; $monthIterator < 13; $monthIterator++)
 						{
