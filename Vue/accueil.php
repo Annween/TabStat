@@ -333,7 +333,7 @@ jQuery(window).load(function(){ jQuery('.loader').fadeOut("200"); });</script> -
 			    		echo "<td>".$donnees['name']."</td>";
 						
 						$monthIterator = 0;
-					/* Itération des mois */ 
+						/* Itération des mois */ 
 						for ($monthIterator = 0; $monthIterator < 13; $monthIterator++)
 						{
 							$reqMonth = getMonthSupp($bdd, $donnees['id'], $monthSeek, ("20".$year)); 

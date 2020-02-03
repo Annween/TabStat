@@ -28,7 +28,7 @@ catch(Exception $e)
 
 
 
-$reqProjectList = $bdd->query("SELECT DISTINCT p.id, p.name FROM `mantis_project_table` as p INNER JOIN `mantis_bug_table` as b ON p.id = `b`.`project_id` WHERE `b`.`status` not in (80, 90) AND FROM_UNIXTIME(`date_submitted`,'%Y') BETWEEN ".$annee_min." AND ".$annee_max."  ");
+$reqProjectList = $bdd->query("SELECT DISTINCT p.id, p.name FROM `mantis_project_table` as p INNER JOIN `mantis_bug_table` as b ON p.id = `b`.`project_id` WHERE `b`.`status` not in (80, 90) AND FROM_UNIXTIME(`date_submitted`,'%Y') BETWEEN ".$annee_min." AND ".$annee_max." ");
 
 $reqProjectList1 = $bdd->query("SELECT DISTINCT p.id, p.name FROM `mantis_project_table` as p INNER JOIN `mantis_bug_table` as b ON p.id = `b`.`project_id` WHERE `b`.`status` not in (80, 90) AND FROM_UNIXTIME(`b`.`date_submitted`,'%Y') BETWEEN ".$annee_min." AND ".$annee_max."");
 
@@ -49,15 +49,6 @@ $reqDate = $bdd -> query("SELECT DISTINCT FROM_UNIXTIME(`date_submitted`,'%Y') A
 
 
 
-/* ---------------------------------------------------
-                      LISTE DES MOIS (TAB 4)
------------------------------------------------------ */
-
-
-
-$reqMonths = $bdd->query('SELECT DISTINCT MONTH(FROM_UNIXTIME(`date_submitted`)) AS MOIS FROM mantis_bug_table ORDER BY MONTH(FROM_UNIXTIME(`date_submitted`))');
-
-
 
 /* ---------------------------------------------------
                       FONCTION TAB 1&2
@@ -69,7 +60,7 @@ $reqMonths = $bdd->query('SELECT DISTINCT MONTH(FROM_UNIXTIME(`date_submitted`))
 	
 		if($type === 'projet') 
 		{
-			return $database->query('SELECT COUNT(*) AS NB FROM `mantis_bug_table` WHERE `project_id`='.$id.' AND DATEDIFF(NOW(),FROM_UNIXTIME(date_submitted)) > '.$min.' AND DATEDIFF(NOW(),FROM_UNIXTIME(date_submitted)) <= '.$max.' AND `status` not in (80, 90) ')->fetch();
+			return $database->query('SELECT COUNT(*) AS NB FROM `mantis_bug_table` WHERE `project_id`='.$id.' AND DATEDIFF(NOW(),FROM_UNIXTIME(date_submitted)) > '.$min.' AND DATEDIFF(NOW(),FROM_UNIXTIME(date_submitted)) <= '.$max.' AND `status` not in (80, 90)')->fetch();
 		} 
 			elseif($type === 'user')  
 			{
