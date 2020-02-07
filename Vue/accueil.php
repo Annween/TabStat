@@ -80,10 +80,9 @@ jQuery(window).load(function(){ jQuery('.loader').fadeOut("200"); });</script> -
 			  /* Recuperation du nombre d'occurence du projet en cours qui ont entre 91 jours et 180 jours */
 			  $req91To180 = getSupportsEnCours($bdd, $donnees['id'], 'projet',91,180);
 			  /* Recuperation du nombre d'occurence du projet en cours qui ont plus de 180 jours */
-			  $reqPlus180 = getSupportsEnCours($bdd, $donnees['id'], 'projet',180,999);
+			  $reqPlus180 = getSupportsEnCours($bdd, $donnees['id'], 'projet',180,9999);
 			  /* Recuperation du total */
-			  $reqTotal = getSupportsEnCours($bdd, $donnees['id'], 'projet',0,999);
-
+			  $reqTotal = getSupportsEnCours($bdd, $donnees['id'], 'projet',0,9999);
 
 
 
@@ -91,7 +90,7 @@ jQuery(window).load(function(){ jQuery('.loader').fadeOut("200"); });</script> -
 
 			  echo "<tr>";
 			    /* Inscription du nom du projet */
-			    echo "<td>".$donnees['name']."</td>";
+			    echo "<td><b>".$donnees['name']."</b></td>";
 				/* Inscription du nombre de ticket de moins d'une semaine */
 				$buffData = $reqLessAWeek;
 				echo "<td>".$buffData['NB']."</td>";
@@ -116,6 +115,7 @@ jQuery(window).load(function(){ jQuery('.loader').fadeOut("200"); });</script> -
 				/* Inscription du nombre de ticket total */
 				$buffData = $reqTotal;
 				echo "<td>".$buffData['NB']."</td>";
+
 
 
 			  echo "</tr>\n";
@@ -169,13 +169,13 @@ jQuery(window).load(function(){ jQuery('.loader').fadeOut("200"); });</script> -
 			  /* Recuperation du nombre d'occurence du projet en cours qui ont entre 91 jours et 180 jours */
 			  $req91To180 = getSupportsEnCours($bdd, $donnees['handler_id'],'user',91,180);
 			  /* Recuperation du nombre d'occurence du projet en cours qui ont plus de 180 jours */
-			  $reqPlus180 = getSupportsEnCours($bdd, $donnees['handler_id'],'user',180,999);
+			  $reqPlus180 = getSupportsEnCours($bdd, $donnees['handler_id'],'user',180,9999);
 			  /* Recuperation du total */
 			  $reqTotal = getSupportsEnCours($bdd, $donnees['handler_id'],'user',0,999);
 
 			   echo "<tr>";
 			    /* Inscription du nom du projet */
-			    echo "<td>".$donnees['username']."</td>";
+			    echo "<td><b>".$donnees['username']."</b></td>";
 				/* Inscription du nombre de ticket de moins d'une semaine */
 				$buffData = $reqLessAWeek;
 				echo "<td>".$buffData['NB']."</td>";
@@ -207,7 +207,7 @@ jQuery(window).load(function(){ jQuery('.loader').fadeOut("200"); });</script> -
                
               ?>
               </tbody>
-              <td width="10%>">Total</td>
+            
 			</table>
         </div>
         <div id="Tab3" class="tabcontent">
@@ -257,7 +257,7 @@ jQuery(window).load(function(){ jQuery('.loader').fadeOut("200"); });</script> -
                 		
                 		echo "<tr>";
 			    		
-			    		echo "<td>".$donnees['DATES']."</td>";
+			    		echo "<td><b>".$donnees['DATES']."</b></td>";
 			    		$buffData = $reqAffected;
 						echo "<td>".$buffData['EtatSupp'] ."</td>";
 						$buffData = $reqAccepted;
@@ -310,7 +310,7 @@ jQuery(window).load(function(){ jQuery('.loader').fadeOut("200"); });</script> -
 				
 					
 					$monthIterator = 0;
-					/* Dirty hack to get data as number */
+
 					$monthSeek = $monthDisplay + 1 - 1;
 					$monthDisplay = $monthSeek;
 					
@@ -318,11 +318,11 @@ jQuery(window).load(function(){ jQuery('.loader').fadeOut("200"); });</script> -
 					{
 					    if ($monthDisplay > 12)
 						    $monthDisplay = 1;
-						/* Dirty display fix */
-						if ($monthDisplay < 10)
-							echo "<td><b>0".$monthDisplay."</b></td>";
-						else
-							echo "<td><b>".$monthDisplay."</b></td>";
+					/* On affiche les mois avant Octobre sur 2 caractères */
+						//if ($monthDisplay < 10)
+							echo "<td><b>".substr("0".$monthDisplay,-2)."</b></td>";
+						//else
+						//	echo "<td><b>".$monthDisplay."</b></td>";
 						$monthDisplay++;
 					}
 					
@@ -340,7 +340,7 @@ jQuery(window).load(function(){ jQuery('.loader').fadeOut("200"); });</script> -
 			    		echo '<td>'.$donnees['name']."</th>";
 						$monthIterator = 0;
 						$year = date("y");
-						/* Displaying 13 month so year is always - 1 */
+						/* On affiche 13 mois donc year = -1  */
 						$year = $year - 1;
 						/* Itération des mois */ 
 						for ($monthIterator = 0; $monthIterator < 13; $monthIterator++)
